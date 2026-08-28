@@ -1,0 +1,159 @@
+"use client"
+
+import * as React from "react"
+import { usePathname } from "next/navigation"
+import {
+	Plus,
+	Home,
+	Briefcase,
+	HardDrive,
+	Monitor,
+	Users,
+	Clock,
+	Star,
+	AlertTriangle,
+	Trash2,
+	FolderPlus,
+	Upload,
+} from "lucide-react"
+import { DriveNavItem } from "./drive-nav-item"
+import { StorageMeter } from "./storage-meter"
+import { DriveButton } from "./drive-button"
+import { useDriveUiStore } from "@/stores/drive-ui-store-provider"
+import { selectSidebarOpen } from "@/stores/selectors"
+
+interface DriveSidebarProps {
+	storageUsed: number
+	storageLimit: number
+}
+
+// Side navigation drawer/bar container
+export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
+	const pathname = usePathname()
+	const sidebarOpen = useDriveUiStore(selectSidebarOpen)
+	const setSidebarOpen = useDriveUiStore((state) => state.setSidebarOpen)
+	const openDialog = useDriveUiStore((state) => state.openDialog)
+
+	const [dropdownOpen, setDropdownOpen] = React.useState(false)
+	const dropdownRef = React.useRef<HTMLDivElement>(null)
+
+	React.useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (
+				dropdownRef.current &&
+				!dropdownRef.current.contains(event.target as Node)
+			) {
+				setDropdownOpen(false)
+			}
+		}
+
+		if (dropdownOpen) {
+			document.addEventListener("mousedown", handleClickOutside)
+		}
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside)
+		}
+	}, [dropdownOpen])
+
+	const handleCreateFolder = () => {
+		setDropdownOpen(false)
+		openDialog("createFolder")
+		setSidebarOpen(false)
+	}
+
+	const handleUploadFile = () => {
+		setDropdownOpen(false)
+		setSidebarOpen(false)
+		const fileInput = document.getElementById("drive-upload-file-input")
+		if (fileInput) {
+			;(fileInput as HTMLInputElement).click()
+		}
+	}
+
+	return (
+		<>
+			<div
+				className="drive-sidebar-scrim"
+				data-open={sidebarOpen ? "true" : undefined}
+				onClick={() => setSidebarOpen(false)}
+			/>
+
+			<aside
+				className="drive-sidebar"
+				data-open={sidebarOpen ? "true" : undefined}
+			>
+				<div ref={dropdownRef} className="relative">
+					<DriveButton
+						variant="new"
+						onClick={() => setDropdownOpen(!dropdownOpen)}
+						aria-haspopup="true"
+						aria-expanded={dropdownOpen}
+					>
+						<Plus className="h-6 w-6" />
+						<span className="drive-new-label text-sm font-medium">New</span>
+					</DriveButton>
+
+					{dropdownOpen && (
+						<div className="absolute left-0 mt-1 w-52 rounded-xl bg-surface py-2 shadow-menu border border-outline-soft z-50 animate-in fade-in zoom-in-95 duration-100">
+							<button
+								type="button"
+								onClick={handleCreateFolder}
+								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-muted hover:bg-surface-low transition-colors"
+							>
+								<FolderPlus className="h-4 w-4" />
+								<span>Create folder</span>
+							</button>
+							<button
+								type="button"
+								onClick={handleUploadFile}
+								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-muted hover:bg-surface-low transition-colors"
+							>
+								<Upload className="h-4 w-4" />
+								<span>Upload file</span>
+							</button>
+						</div>
+					)}
+				</div>
+
+				<nav className="drive-nav-group">
+					<DriveNavItem icon={Home} label="Home" disabled />
+					<DriveNavItem icon={Briefcase} label="Projects" disabled />
+				</nav>
+
+				<nav className="drive-nav-group">
+					<DriveNavItem
+						icon={HardDrive}
+						label="My Drive"
+						href="/dashboard"
+						active={
+							pathname === "/dashboard" || pathname.startsWith("/drive/folders")
+						}
+						onClick={() => setSidebarOpen(false)}
+					/>
+					<DriveNavItem icon={Monitor} label="Computers" disabled />
+				</nav>
+
+				<nav className="drive-nav-group">
+					<DriveNavItem icon={Users} label="Shared with me" disabled />
+					<DriveNavItem icon={Clock} label="Recent" disabled />
+					<DriveNavItem
+						icon={Star}
+						label="Starred"
+						href="/starred"
+						active={pathname === "/starred"}
+						onClick={() => setSidebarOpen(false)}
+					/>
+					<DriveNavItem icon={AlertTriangle} label="Spam" disabled />
+					<DriveNavItem
+						icon={Trash2}
+						label="Trash"
+						href="/trash"
+						active={pathname === "/trash"}
+						onClick={() => setSidebarOpen(false)}
+					/>
+					<StorageMeter used={storageUsed} total={storageLimit} />
+				</nav>
+			</aside>
+		</>
+	)
+}

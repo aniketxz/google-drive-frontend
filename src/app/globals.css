@@ -1,0 +1,1003 @@
+@import "tailwindcss";
+
+/* Manual dark mode supports either <html class="dark"> or
+   <html data-theme="dark">. Without either, the light theme is used. */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/* Tailwind v4 theme namespaces generate utilities such as bg-canvas,
+   text-foreground, rounded-panel, shadow-menu, and 3xl:*. */
+@theme inline {
+  --font-sans: var(--ui-font-sans);
+  --font-display: var(--ui-font-display);
+
+  --color-canvas: var(--ui-canvas);
+  --color-surface: var(--ui-surface);
+  --color-surface-low: var(--ui-surface-low);
+  --color-surface-high: var(--ui-surface-high);
+  --color-surface-highest: var(--ui-surface-highest);
+  --color-foreground: var(--ui-foreground);
+  --color-muted: var(--ui-muted);
+  --color-subtle: var(--ui-subtle);
+  --color-outline: var(--ui-outline);
+  --color-outline-soft: var(--ui-outline-soft);
+  --color-primary: var(--ui-primary);
+  --color-primary-hover: var(--ui-primary-hover);
+  --color-primary-container: var(--ui-primary-container);
+  --color-on-primary-container: var(--ui-on-primary-container);
+  --color-success: var(--ui-success);
+  --color-danger: var(--ui-danger);
+  --color-folder: var(--ui-folder);
+
+  --radius-control: 1.5rem;
+  --radius-card: 0.75rem;
+  --radius-panel: 1.25rem;
+
+  --shadow-control: var(--ui-shadow-control);
+  --shadow-menu: var(--ui-shadow-menu);
+  --shadow-dialog: var(--ui-shadow-dialog);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --breakpoint-3xl: 120rem;
+}
+
+/* Runtime design tokens belong in :root instead of @theme because they do not
+   need to generate utilities or they change between color schemes. */
+:root {
+  color-scheme: light;
+
+  --ui-font-sans: "Google Sans Text", "Google Sans", Roboto, Arial, sans-serif;
+  --ui-font-display: "Google Sans", "Google Sans Text", Roboto, Arial, sans-serif;
+
+  --ui-canvas: #f8fafd;
+  --ui-surface: #ffffff;
+  --ui-surface-low: #f3f6fc;
+  --ui-surface-high: #e9eef6;
+  --ui-surface-highest: #dde3ea;
+  --ui-foreground: #1f1f1f;
+  --ui-muted: #444746;
+  --ui-subtle: #5f6368;
+  --ui-outline: #747775;
+  --ui-outline-soft: #c4c7c5;
+  --ui-primary: #0b57d0;
+  --ui-primary-hover: #0842a0;
+  --ui-primary-container: #c2e7ff;
+  --ui-on-primary-container: #001d35;
+  --ui-success: #1e8e3e;
+  --ui-danger: #b3261e;
+  --ui-folder: #f9c74f;
+  --ui-scrim: rgb(31 31 31 / 0.4);
+
+  --ui-shadow-control:
+    0 1px 2px rgb(60 64 67 / 0.3),
+    0 1px 3px 1px rgb(60 64 67 / 0.15);
+  --ui-shadow-menu: 0 2px 6px 2px rgb(60 64 67 / 0.15);
+  --ui-shadow-dialog: 0 8px 24px rgb(60 64 67 / 0.22);
+
+  --layout-topbar: clamp(3.5rem, 3.25rem + 0.75vw, 4rem);
+  --layout-sidebar: clamp(12rem, 16.7vw, 20rem);
+  --layout-gutter: clamp(0.75rem, 0.5rem + 0.75vw, 1.5rem);
+  --layout-content-gap: clamp(0.5rem, 0.35rem + 0.45vw, 1rem);
+  --layout-section-gap: clamp(1.25rem, 0.9rem + 1vw, 2.25rem);
+  --layout-grid-gap: clamp(0.75rem, 0.55rem + 0.6vw, 1.25rem);
+  --layout-card-min: clamp(10rem, 8.75rem + 4vw, 14rem);
+  --layout-row-height: clamp(2.75rem, 2.5rem + 0.6vw, 3.25rem);
+
+  --text-caption: clamp(0.6875rem, 0.66rem + 0.1vw, 0.75rem);
+  --text-body: clamp(0.8125rem, 0.78rem + 0.12vw, 0.875rem);
+  --text-ui: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+  --text-title: clamp(1.25rem, 1.05rem + 0.65vw, 1.75rem);
+
+  --focus-ring: 0 0 0 2px var(--ui-surface), 0 0 0 4px var(--ui-primary);
+  --motion-fast: 120ms var(--ease-standard);
+  --motion-standard: 200ms var(--ease-standard);
+}
+
+:where(.dark, [data-theme="dark"]) {
+  color-scheme: dark;
+
+  --ui-canvas: #0f1113;
+  --ui-surface: #17191c;
+  --ui-surface-low: #1e2226;
+  --ui-surface-high: #252a30;
+  --ui-surface-highest: #30363d;
+  --ui-foreground: #e3e3e3;
+  --ui-muted: #c4c7c5;
+  --ui-subtle: #a9acaa;
+  --ui-outline: #8e918f;
+  --ui-outline-soft: #464b50;
+  --ui-primary: #a8c7fa;
+  --ui-primary-hover: #c2d7ff;
+  --ui-primary-container: #0842a0;
+  --ui-on-primary-container: #d3e3fd;
+  --ui-success: #6dd58c;
+  --ui-danger: #ffb4ab;
+  --ui-folder: #f6c453;
+  --ui-scrim: rgb(0 0 0 / 0.64);
+
+  --ui-shadow-control: 0 1px 2px rgb(0 0 0 / 0.42);
+  --ui-shadow-menu: 0 4px 12px rgb(0 0 0 / 0.48);
+  --ui-shadow-dialog: 0 12px 32px rgb(0 0 0 / 0.56);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--ui-outline-soft);
+  }
+
+  html {
+    min-width: 20rem;
+    min-height: 100%;
+    background: var(--ui-canvas);
+    font-family: var(--ui-font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100dvh;
+    margin: 0;
+    background: var(--ui-canvas);
+    color: var(--ui-foreground);
+    font-size: var(--text-body);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  [role="button"],
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :where(button, [role="button"], a, input, select, textarea):focus-visible {
+    border-radius: 0.25rem;
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+
+  ::selection {
+    background: var(--ui-primary-container);
+    color: var(--ui-on-primary-container);
+  }
+
+  * {
+    scrollbar-color: var(--ui-outline) transparent;
+    scrollbar-width: thin;
+  }
+}
+
+@layer components {
+  /* Mobile-first app shell. The sidebar is a drawer until md, becomes an icon
+     rail at md, and expands to the full reference sidebar at lg. */
+  .drive-shell {
+    display: grid;
+    grid-template:
+      "topbar" var(--layout-topbar)
+      "content" minmax(0, calc(100dvh - var(--layout-topbar)))
+      / minmax(0, 1fr);
+    min-height: 100dvh;
+    overflow: hidden;
+    background: var(--ui-canvas);
+  }
+
+  .drive-topbar {
+    grid-area: topbar;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(0.5rem, 1vw, 1rem);
+    padding-inline: clamp(0.5rem, 1.2vw, 1.5rem);
+    background: var(--ui-canvas);
+  }
+
+  .drive-topbar-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    color: var(--ui-muted);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    transition: background-color var(--motion-fast), color var(--motion-fast);
+  }
+
+  .drive-topbar-action:hover {
+    background-color: var(--ui-surface-low);
+    color: var(--ui-foreground);
+  }
+
+  .drive-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    background-color: var(--ui-surface-high);
+    color: var(--ui-foreground);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--ui-primary);
+    transition: box-shadow var(--motion-fast), transform var(--motion-fast);
+  }
+
+  .drive-avatar:hover {
+    box-shadow: 0 0 0 2px var(--ui-primary-hover), 0 0 0 4px var(--ui-primary-container);
+  }
+
+  .drive-avatar:active {
+    transform: scale(0.95);
+  }
+
+  .drive-account-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    width: 14rem;
+    background-color: var(--ui-surface);
+    border: 1px solid var(--ui-outline-soft);
+    border-radius: 0.5rem;
+    box-shadow: var(--ui-shadow-dialog);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-fast);
+  }
+
+  .drive-brand {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--ui-muted);
+    font-family: var(--ui-font-display);
+    font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
+  }
+
+  .drive-search {
+    display: flex;
+    width: min(100%, 65rem);
+    min-height: clamp(2.5rem, 2.2rem + 0.9vw, 3.2rem);
+    align-items: center;
+    gap: 0.75rem;
+    justify-self: start;
+    padding-inline: clamp(0.875rem, 1.2vw, 1.25rem);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--ui-surface-high);
+    color: var(--ui-muted);
+    transition:
+      background-color var(--motion-fast),
+      border-color var(--motion-fast),
+      box-shadow var(--motion-fast);
+  }
+
+  .drive-search:focus-within {
+    border-color: var(--ui-outline-soft);
+    background: var(--ui-surface);
+    box-shadow: var(--ui-shadow-control);
+  }
+
+  .drive-search input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ui-foreground);
+    font-size: var(--text-ui);
+  }
+
+  .drive-search input:focus,
+  .drive-search input:focus-visible {
+    box-shadow: none !important;
+  }
+
+  .drive-search input::placeholder {
+    color: var(--ui-subtle);
+  }
+
+  .drive-sidebar {
+    position: fixed;
+    z-index: 60;
+    inset: 0 auto 0 0;
+    display: flex;
+    width: min(20rem, 88vw);
+    min-height: 0;
+    flex-direction: column;
+    gap: 0.125rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--ui-canvas);
+    box-shadow: var(--ui-shadow-dialog);
+    translate: -105% 0;
+    transition: translate var(--motion-standard);
+  }
+
+  .drive-sidebar[data-open="true"] {
+    translate: 0 0;
+  }
+
+  .drive-sidebar-scrim {
+    position: fixed;
+    z-index: 50;
+    inset: 0;
+    border: 0;
+    background: var(--ui-scrim);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-standard);
+  }
+
+  .drive-sidebar-scrim[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .drive-new-button {
+    display: inline-flex;
+    width: fit-content;
+    min-width: 7.875rem;
+    min-height: 3.5rem;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.875rem;
+    margin: 0.125rem 0 1rem;
+    padding-inline: 1.25rem;
+    border: 0;
+    border-radius: 1rem;
+    background: var(--ui-surface);
+    color: var(--ui-foreground);
+    box-shadow: var(--ui-shadow-control);
+    cursor: pointer;
+    transition:
+      background-color var(--motion-fast),
+      box-shadow var(--motion-fast),
+      transform var(--motion-fast);
+  }
+
+  .drive-new-button:hover {
+    background: var(--ui-surface-low);
+    box-shadow: var(--ui-shadow-menu);
+  }
+
+  .drive-new-button:active {
+    transform: scale(0.98);
+  }
+
+  .drive-nav-group {
+    display: grid;
+    gap: 0.05rem;
+    margin-block-end: 0.3rem;
+  }
+
+  .drive-nav-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.875rem;
+    border: 0;
+    border-radius: 999px;
+    padding-inline: 1rem;
+    background: transparent;
+    color: var(--ui-foreground);
+    cursor: pointer;
+    text-align: start;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color var(--motion-fast),
+      color var(--motion-fast),
+      opacity var(--motion-fast);
+  }
+
+  .drive-nav-item:hover {
+    background: var(--ui-surface-high);
+  }
+
+  .drive-nav-item:is([aria-current="page"], [data-active="true"]) {
+    background: var(--ui-primary-container);
+    color: var(--ui-on-primary-container);
+    font-weight: 500;
+  }
+
+  .drive-nav-item:is([aria-disabled="true"], [data-disabled="true"]) {
+    opacity: 0.48;
+    cursor: not-allowed;
+  }
+
+  .drive-nav-icon {
+    display: grid;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: none;
+    place-items: center;
+  }
+
+  .drive-storage {
+    margin-block-start: auto;
+    padding: 0.5rem 1rem 0;
+  }
+
+  .drive-storage-meter {
+    height: 0.25rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--ui-surface-highest);
+  }
+
+  .drive-storage-meter > span {
+    display: block;
+    width: min(var(--storage-used, 0%), 100%);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--ui-primary);
+    transition: width 400ms var(--ease-standard);
+  }
+
+  .drive-content {
+    grid-area: content;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--ui-surface);
+  }
+
+  .drive-content-scroll {
+    height: 100%;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: var(--layout-gutter);
+    scrollbar-gutter: stable;
+  }
+
+  .drive-content-header {
+    position: sticky;
+    z-index: 20;
+    top: calc(var(--layout-gutter) * -1);
+    display: grid;
+    gap: clamp(0.875rem, 1.25vw, 1.5rem);
+    margin: calc(var(--layout-gutter) * -1) calc(var(--layout-gutter) * -1) 0;
+    padding: var(--layout-gutter);
+    background: color-mix(in srgb, var(--ui-surface) 94%, transparent);
+    backdrop-filter: blur(0.75rem);
+  }
+
+  .drive-titlebar,
+  .drive-toolbar,
+  .drive-selection-toolbar {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: clamp(0.5rem, 0.8vw, 0.875rem);
+  }
+
+  .drive-titlebar {
+    min-height: 2.5rem;
+    justify-content: space-between;
+  }
+
+  .drive-title {
+    overflow: hidden;
+    margin: 0;
+    font-family: var(--ui-font-display);
+    font-size: var(--text-title);
+    font-weight: 400;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .drive-toolbar {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--layout-gutter) * -1);
+    padding-inline: var(--layout-gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .drive-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .drive-chip,
+  .drive-button-outline,
+  .drive-icon-button {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--ui-outline);
+    background: var(--ui-surface);
+    color: var(--ui-foreground);
+    cursor: pointer;
+    transition:
+      background-color var(--motion-fast),
+      border-color var(--motion-fast),
+      color var(--motion-fast);
+  }
+
+  .drive-chip,
+  .drive-button-outline {
+    flex: none;
+    gap: 0.5rem;
+    padding-inline: clamp(0.75rem, 1vw, 1.125rem);
+    border-radius: 0.625rem;
+  }
+
+  .drive-icon-button {
+    width: 2.5rem;
+    flex: 0 0 2.5rem;
+    border-color: transparent;
+    border-radius: 999px;
+  }
+
+  .drive-chip:hover,
+  .drive-button-outline:hover,
+  .drive-icon-button:hover {
+    background: var(--ui-surface-low);
+  }
+
+  .drive-chip[aria-pressed="true"],
+  .drive-icon-button[aria-pressed="true"] {
+    border-color: transparent;
+    background: var(--ui-primary-container);
+    color: var(--ui-on-primary-container);
+  }
+
+  :where(.drive-new-button, .drive-chip, .drive-button-outline, .drive-icon-button):disabled {
+    opacity: 0.48;
+    cursor: not-allowed;
+  }
+
+  /* Apply @container to this element in markup too when Tailwind container
+     variants are needed by children: class="drive-browser @container/browser". */
+  .drive-browser {
+    container-name: browser;
+    container-type: inline-size;
+  }
+
+  .drive-section {
+    margin-block-start: var(--layout-section-gap);
+  }
+
+  .drive-section-heading {
+    margin: 0 0 0.75rem;
+    color: var(--ui-muted);
+    font-size: var(--text-body);
+    font-weight: 500;
+  }
+
+  .drive-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--layout-grid-gap);
+  }
+
+  .drive-folder-card,
+  .drive-file-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: var(--radius-card);
+    background: var(--ui-surface-low);
+    color: var(--ui-foreground);
+    transition:
+      background-color var(--motion-fast),
+      border-color var(--motion-fast),
+      box-shadow var(--motion-fast),
+      transform var(--motion-fast);
+  }
+
+  .drive-folder-card {
+    display: flex;
+    min-height: clamp(3.5rem, 3.25rem + 0.75vw, 4rem);
+    align-items: center;
+    gap: 0.75rem;
+    padding-inline: 1rem 0.5rem;
+  }
+
+  .drive-file-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
+  .drive-card-header {
+    display: flex;
+    min-width: 0;
+    min-height: 3.5rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+  }
+
+  .drive-card-name {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .drive-card-preview {
+    display: grid;
+    aspect-ratio: 4 / 3;
+    margin: 0 0.5rem 0.5rem;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    background: var(--ui-surface);
+    color: var(--ui-muted);
+    place-items: center;
+  }
+
+  .drive-card-preview > :where(img, video, canvas) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .drive-folder-card:hover,
+  .drive-file-card:hover {
+    background: var(--ui-surface-high);
+  }
+
+  .drive-folder-card:is([aria-selected="true"], [data-selected="true"]),
+  .drive-file-card:is([aria-selected="true"], [data-selected="true"]) {
+    border-color: var(--ui-primary);
+    background: var(--ui-primary-container);
+    color: var(--ui-on-primary-container);
+    box-shadow: inset 0 0 0 1px var(--ui-primary);
+  }
+
+  .drive-list {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  .drive-list th {
+    height: 2.75rem;
+    border-bottom: 1px solid var(--ui-outline-soft);
+    color: var(--ui-muted);
+    font-weight: 500;
+    text-align: start;
+  }
+
+  .drive-list-row {
+    height: var(--layout-row-height);
+    cursor: pointer;
+  }
+
+  .drive-list-row > * {
+    border-bottom: 1px solid var(--ui-outline-soft);
+  }
+
+  .drive-list-row:hover > * {
+    background: var(--ui-surface-low);
+  }
+
+  .drive-list-row[aria-selected="true"] > * {
+    background: var(--ui-primary-container);
+    color: var(--ui-on-primary-container);
+  }
+
+  .drive-menu {
+    width: min(25rem, calc(100vw - 2rem));
+    overflow: hidden;
+    padding-block: 0.5rem;
+    border: 1px solid var(--ui-outline-soft);
+    border-radius: 0.5rem;
+    background: var(--ui-surface);
+    color: var(--ui-foreground);
+    box-shadow: var(--ui-shadow-menu);
+  }
+
+  .drive-menu-item {
+    display: flex;
+    width: 100%;
+    min-height: 3rem;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.625rem 1rem;
+    border: 0;
+    background: transparent;
+    color: var(--ui-muted);
+    cursor: pointer;
+    text-align: start;
+  }
+
+  .drive-menu-item:hover {
+    background: var(--ui-surface-low);
+  }
+
+  .drive-menu-item:is(:disabled, [aria-disabled="true"]) {
+    opacity: 0.48;
+    cursor: not-allowed;
+  }
+
+  .drive-menu-separator {
+    height: 1px;
+    margin-block: 0.5rem;
+    background: var(--ui-outline-soft);
+  }
+
+  .drive-upload-panel {
+    position: fixed;
+    z-index: 70;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--ui-primary) 68%, transparent);
+    border-bottom: 0;
+    border-radius: 1rem 1rem 0 0;
+    background: var(--ui-surface);
+    color: var(--ui-foreground);
+    box-shadow: var(--ui-shadow-dialog);
+  }
+
+  .drive-upload-header,
+  .drive-upload-item {
+    display: flex;
+    min-height: 4.25rem;
+    align-items: center;
+    gap: 1rem;
+    padding-inline: clamp(1rem, 1.5vw, 1.5rem);
+  }
+
+  .drive-upload-header {
+    justify-content: space-between;
+    font-size: var(--text-ui);
+  }
+
+  .drive-upload-item {
+    border-top: 1px solid var(--ui-outline-soft);
+    color: var(--ui-muted);
+  }
+
+  .drive-upload-progress {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-inline-start: auto;
+    border: 0.25rem solid var(--ui-surface-highest);
+    border-top-color: var(--ui-primary);
+    border-radius: 999px;
+    animation: drive-spin 800ms linear infinite;
+  }
+
+  .drive-upload-success {
+    display: grid;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-inline-start: auto;
+    border-radius: 999px;
+    background: var(--ui-success);
+    color: var(--ui-surface);
+    place-items: center;
+  }
+
+  .drive-empty-state {
+    display: grid;
+    min-height: min(30rem, 55dvh);
+    place-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    color: var(--ui-muted);
+    text-align: center;
+  }
+
+  .drive-skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--ui-surface-high);
+  }
+
+  .drive-skeleton::after {
+    position: absolute;
+    inset: 0;
+    animation: drive-shimmer 1.4s infinite;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ui-surface) 65%, transparent), transparent);
+    content: "";
+    transform: translateX(-100%);
+  }
+}
+
+/* Component responsiveness is based on available browser width, not viewport. */
+@container browser (width >= 24rem) {
+  .drive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container browser (width >= 48rem) {
+  .drive-grid {
+    grid-template-columns: repeat(auto-fill, minmax(var(--layout-card-min), 1fr));
+  }
+}
+
+/* Tablet: persistent icon rail. */
+@media (width >= 48rem) {
+  .drive-shell {
+    grid-template:
+      "topbar topbar" var(--layout-topbar)
+      "sidebar content" minmax(0, calc(100dvh - var(--layout-topbar)))
+      / 4.5rem minmax(0, 1fr);
+  }
+
+  .drive-topbar {
+    grid-template-columns: 4.5rem minmax(12rem, 1fr) auto;
+  }
+
+  .drive-sidebar {
+    position: static;
+    z-index: auto;
+    grid-area: sidebar;
+    width: auto;
+    align-items: center;
+    padding: 0.5rem;
+    box-shadow: none;
+    translate: none;
+  }
+
+  .drive-sidebar-scrim {
+    display: none;
+  }
+
+  .drive-sidebar .drive-new-button {
+    width: 3.5rem;
+    min-width: 3.5rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .drive-new-label,
+  .drive-nav-label,
+  .drive-sidebar .drive-storage,
+  .drive-brand-label {
+    display: none;
+  }
+
+  .drive-sidebar .drive-nav-item {
+    width: 2.75rem;
+    min-height: 2.75rem;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .drive-content {
+    margin-inline-end: var(--layout-content-gap);
+    border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+  }
+
+  .drive-toolbar {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .drive-upload-panel {
+    right: clamp(0.75rem, 1.5vw, 1.5rem);
+    width: min(28rem, calc(100vw - 1.5rem));
+  }
+}
+
+/* Desktop: full reference sidebar. */
+@media (width >= 64rem) {
+  .drive-shell {
+    grid-template-columns: var(--layout-sidebar) minmax(0, 1fr);
+  }
+
+  .drive-topbar {
+    grid-template-columns: var(--layout-sidebar) minmax(15rem, 1fr) auto;
+    padding-inline: clamp(0.75rem, 1vw, 1.25rem) clamp(0.75rem, 1.2vw, 1.5rem);
+  }
+
+  .drive-sidebar {
+    align-items: stretch;
+    padding: 0.5rem clamp(0.625rem, 1vw, 1.25rem) 1rem;
+  }
+
+  .drive-sidebar .drive-new-button {
+    width: fit-content;
+    min-width: 7.875rem;
+    padding-inline: 1.25rem;
+    justify-content: flex-start;
+  }
+
+  .drive-new-label,
+  .drive-nav-label,
+  .drive-brand-label {
+    display: inline;
+  }
+
+  .drive-sidebar .drive-storage {
+    display: block;
+  }
+
+  .drive-sidebar .drive-nav-item {
+    width: 100%;
+    min-height: 2.5rem;
+    justify-content: flex-start;
+    padding-inline: 1rem;
+  }
+
+  .drive-list .drive-modified-column,
+  .drive-list .drive-size-column {
+    display: table-cell;
+  }
+}
+
+@media (width < 64rem) {
+  .drive-list .drive-size-column {
+    display: none;
+  }
+}
+
+@media (width < 48rem) {
+  .drive-brand {
+    font-size: 0;
+  }
+
+  .drive-search input::placeholder {
+    color: transparent;
+  }
+
+  .drive-content-header {
+    backdrop-filter: none;
+  }
+
+  .drive-list .drive-modified-column,
+  .drive-list .drive-size-column {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .drive-nav-item[aria-current="page"],
+  .drive-folder-card[aria-selected="true"],
+  .drive-file-card[aria-selected="true"] {
+    border: 2px solid Highlight;
+  }
+}
+
+@keyframes drive-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@keyframes drive-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}

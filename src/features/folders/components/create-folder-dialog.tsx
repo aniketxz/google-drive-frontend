@@ -1,0 +1,80 @@
+"use client";
+
+import * as React from "react";
+import { DriveDialog } from "@/components/drive/drive-dialog";
+import { useCreateFolderMutation } from "../mutations";
+import { useDriveUiStore } from "@/stores/drive-ui-store-provider";
+import { useParams } from "next/navigation";
+
+// Form dialog to input new folder names
+export function CreateFolderDialog() {
+  const params = useParams();
+  const activeDialog = useDriveUiStore((state) => state.activeDialog);
+  const closeDialog = useDriveUiStore((state) => state.closeDialog);
+  const createFolder = useCreateFolderMutation();
+  
+  const [name, setName] = React.useState("");
+
+  const isOpen = activeDialog?.type === "createFolder";
+
+  React.useEffect(() => {
+    if (isOpen) {
+      setName("Untitled folder");
+    }
+  }, [isOpen]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim()) return;
+
+    const parentId = (params?.folderId as string) || null;
+
+    try {
+      await createFolder.mutateAsync({ name, parentId });
+      closeDialog();
+    } catch {
+      // Error notifications handled by toast
+    }
+  };
+
+  const footer = (
+    <>
+      <button
+        type="button"
+        onClick={closeDialog}
+        className="drive-dialog-action"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        form="create-folder-form"
+        disabled={createFolder.isPending || !name.trim()}
+        className="drive-dialog-action"
+        data-emphasis="primary"
+      >
+        {createFolder.isPending ? "Creating..." : "Create"}
+      </button>
+    </>
+  );
+
+  return (
+    <DriveDialog
+      open={isOpen}
+      onOpenChange={(open) => !open && closeDialog()}
+      title="New folder"
+      footer={footer}
+    >
+      <form id="create-folder-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          autoFocus
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Folder name"
+          className="drive-dialog-input"
+        />
+      </form>
+    </DriveDialog>
+  );
+}

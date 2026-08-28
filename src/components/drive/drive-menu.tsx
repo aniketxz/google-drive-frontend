@@ -9,6 +9,7 @@ export interface ItemAction {
   enabled: boolean;
   destructive?: boolean;
   separatorBefore?: boolean;
+  shortcut?: string;
 }
 
 interface DriveMenuProps {
@@ -29,12 +30,19 @@ export function DriveMenu({ actions, onAction, className }: DriveMenuProps) {
             disabled={!action.enabled}
             onClick={() => action.enabled && onAction(action.id)}
             className={cn(
-              "drive-menu-item flex items-center w-full text-left",
+              "drive-menu-item flex items-center justify-between w-full text-left",
               action.destructive && "text-destructive hover:bg-destructive/10"
             )}
           >
-            <action.icon className="h-4 w-4 flex-shrink-0" />
-            <span className="text-sm">{action.label}</span>
+            <div className="flex items-center gap-3.5 min-w-0">
+              <action.icon className={cn("h-4 w-4 shrink-0", action.destructive ? "text-destructive" : "text-foreground")} />
+              <span className="text-sm font-normal truncate">{action.label}</span>
+            </div>
+            {action.shortcut && (
+              <span className="text-[11px] text-muted-foreground ml-3 shrink-0 font-sans tracking-tight opacity-75">
+                {action.shortcut}
+              </span>
+            )}
           </button>
         </React.Fragment>
       ))}

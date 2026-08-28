@@ -20,6 +20,7 @@ export interface ItemAction {
   enabled: boolean;
   destructive?: boolean;
   separatorBefore?: boolean;
+  shortcut?: string;
 }
 
 // Get valid actions for a list of items based on capabilities
@@ -70,6 +71,7 @@ export function getItemActions(
     label: "Rename",
     icon: Edit3,
     enabled: isSingle,
+    shortcut: "Ctrl+Alt+E",
   });
 
   if (allStarred) {
@@ -109,6 +111,7 @@ export function getItemActions(
     enabled: capabilities.trash,
     destructive: true,
     separatorBefore: true,
+    shortcut: "Delete",
   });
 
   return actions;

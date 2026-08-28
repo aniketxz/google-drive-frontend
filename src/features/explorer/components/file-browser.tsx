@@ -300,8 +300,8 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
       {/* Absolute positioning context menu */}
       {contextMenu && (
         <div
-          className="fixed z-50 shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-100"
-          style={{ top: contextMenu.y, left: contextMenu.x }}
+          className="fixed z-50 animate-in fade-in zoom-in-95 duration-100"
+          style={{ top: contextMenu.y + 2, left: contextMenu.x }}
           onClick={(e) => e.stopPropagation()}
         >
           <DriveMenu

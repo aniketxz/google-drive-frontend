@@ -53,7 +53,7 @@ export function DriveDialog({
               {title}
             </h3>
             {description && (
-              <p className="mt-1.5 text-sm text-muted">
+              <p className="mt-1.5 text-sm text-foreground/80 font-normal">
                 {description}
               </p>
             )}

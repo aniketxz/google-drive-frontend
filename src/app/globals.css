@@ -313,7 +313,7 @@
   }
 
   .drive-account-menu {
-    @apply absolute right-0 top-full mt-2 w-56 bg-card border border-border rounded-lg shadow-lg z-50 opacity-0 pointer-events-none transition-opacity duration-150;
+    @apply absolute right-0 top-full mt-1 w-56 bg-card border border-border/60 rounded-xl shadow-lg z-50 opacity-0 pointer-events-none transition-opacity duration-150;
   }
 
   .drive-brand {
@@ -362,7 +362,7 @@
   }
 
   .drive-new-button {
-    @apply inline-flex items-center justify-start gap-3.5 my-0.5 mb-4 border-0 rounded-2xl bg-card text-foreground shadow-sm cursor-pointer transition-all duration-150;
+    @apply inline-flex items-center justify-start gap-3.5 border-0 rounded-2xl bg-card text-foreground shadow-sm cursor-pointer transition-all duration-150;
     width: fit-content;
     min-width: 7.875rem;
     min-height: 3.5rem;
@@ -582,20 +582,22 @@
   }
 
   .drive-menu {
-    @apply overflow-hidden py-2 border border-border rounded-lg bg-card text-foreground shadow-md;
-    width: min(25rem, calc(100vw - 2rem));
+    @apply overflow-hidden py-1.5 border border-border/60 rounded-xl bg-card text-foreground shadow-lg;
+    min-width: 14rem;
+    width: max-content;
+    max-width: min(20rem, calc(100vw - 2rem));
   }
 
   .drive-menu-item {
-    @apply flex w-full min-h-12 items-center gap-4 px-4 py-2.5 border-0 bg-transparent text-foreground cursor-pointer text-left hover:bg-surface-low;
+    @apply flex w-full h-9 items-center gap-3.5 px-3.5 py-1.5 border-0 bg-transparent text-foreground cursor-pointer text-left transition-colors duration-100 hover:bg-surface-low text-sm font-normal select-none;
   }
 
   .drive-menu-item:is(:disabled, [aria-disabled="true"]) {
-    @apply opacity-50 cursor-not-allowed;
+    @apply opacity-40 cursor-not-allowed hover:bg-transparent;
   }
 
   .drive-menu-separator {
-    @apply h-px my-2 bg-border;
+    @apply h-px my-1 bg-border/60;
   }
 
   .drive-upload-panel {

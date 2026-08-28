@@ -66,7 +66,7 @@ export function EmptyTrashDialog() {
       description="All items in trash will be permanently deleted. You cannot undo this action."
       footer={footer}
     >
-      <div className="text-sm text-muted">
+      <div className="text-sm text-foreground/80 font-normal">
         Are you sure you want to permanently clear your trash?
       </div>
     </DriveDialog>

@@ -82,7 +82,7 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 				className="drive-sidebar"
 				data-open={sidebarOpen ? "true" : undefined}
 			>
-				<div ref={dropdownRef} className="relative">
+				<div ref={dropdownRef} className="relative mb-3">
 					<DriveButton
 						variant="new"
 						onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -94,22 +94,23 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 					</DriveButton>
 
 					{dropdownOpen && (
-						<div className="absolute left-0 mt-1 w-52 rounded-xl bg-card py-2 shadow-menu border border-border z-50 animate-in fade-in zoom-in-95 duration-100">
+						<div className="absolute left-0 top-full mt-0.5 w-52 rounded-xl bg-card py-1.5 shadow-lg border border-border/60 z-50 animate-in fade-in zoom-in-95 duration-100">
 							<button
 								type="button"
 								onClick={handleCreateFolder}
-								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-foreground hover:bg-surface-low transition-colors font-medium"
+								className="flex w-full h-9 items-center gap-3.5 px-3.5 py-1.5 text-left text-sm text-foreground hover:bg-surface-low transition-colors font-normal select-none"
 							>
 								<FolderPlus className="h-4 w-4 text-foreground shrink-0" />
-								<span>Create folder</span>
+								<span>New folder</span>
 							</button>
+							<div className="h-px my-1 bg-border/60" />
 							<button
 								type="button"
 								onClick={handleUploadFile}
-								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-foreground hover:bg-surface-low transition-colors font-medium"
+								className="flex w-full h-9 items-center gap-3.5 px-3.5 py-1.5 text-left text-sm text-foreground hover:bg-surface-low transition-colors font-normal select-none"
 							>
 								<Upload className="h-4 w-4 text-foreground shrink-0" />
-								<span>Upload file</span>
+								<span>File upload</span>
 							</button>
 						</div>
 					)}

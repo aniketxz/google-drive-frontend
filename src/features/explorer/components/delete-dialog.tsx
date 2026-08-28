@@ -79,7 +79,7 @@ export function DeleteDialog({ inTrash = false }: DeleteDialogProps) {
       description={description}
       footer={footer}
     >
-      <div className="text-sm text-muted">
+      <div className="text-sm text-foreground/80 font-normal">
         Are you sure you want to proceed?
       </div>
     </DriveDialog>

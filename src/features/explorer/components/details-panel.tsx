@@ -39,7 +39,7 @@ export function DetailsPanel({ items }: DetailsPanelProps) {
     <div className="w-full lg:w-80 shrink-0 rounded-2xl border border-outline-soft bg-surface-low p-6 flex flex-col gap-6 select-none animate-in slide-in-from-right-4 duration-200">
       <div className="flex items-center justify-between pb-3 border-b border-outline-soft">
         <div className="flex items-center gap-2 font-semibold text-sm">
-          <Info className="h-4 w-4 text-muted" />
+          <Info className="h-4 w-4 text-foreground/80" />
           <span>Details</span>
         </div>
         <button
@@ -59,35 +59,35 @@ export function DetailsPanel({ items }: DetailsPanelProps) {
       </div>
 
       <div className="flex flex-col gap-4 text-xs">
-        <h3 className="font-semibold text-muted">System properties</h3>
+        <h3 className="font-semibold text-foreground/85">System properties</h3>
         
         <div className="flex flex-col gap-3">
           <div className="flex justify-between gap-4">
-            <span className="text-muted shrink-0">Type</span>
+            <span className="text-foreground/80 shrink-0">Type</span>
             <span className="text-foreground text-right capitalize">{fileKind}</span>
           </div>
 
           {activeItem.kind === "file" && (
             <div className="flex justify-between gap-4">
-              <span className="text-muted shrink-0">Size</span>
+              <span className="text-foreground/80 shrink-0">Size</span>
               <span className="text-foreground text-right">{formatBytes(activeItem.size)}</span>
             </div>
           )}
 
           <div className="flex justify-between gap-4">
-            <span className="text-muted shrink-0">Location</span>
+            <span className="text-foreground/80 shrink-0">Location</span>
             <span className="text-foreground text-right truncate max-w-[150px]">
               {activeItem.kind === "folder" ? "My Drive" : "Folder"}
             </span>
           </div>
 
           <div className="flex justify-between gap-4 font-mono text-[10px]">
-            <span className="text-muted shrink-0">Modified</span>
+            <span className="text-foreground/80 shrink-0">Modified</span>
             <span className="text-foreground text-right">{formatDate(activeItem.updatedAt)}</span>
           </div>
 
           <div className="flex justify-between gap-4">
-            <span className="text-muted shrink-0">Starred</span>
+            <span className="text-foreground/80 shrink-0">Starred</span>
             <span className="text-foreground text-right">
               {activeItem.isStarred ? "Yes" : "No"}
             </span>

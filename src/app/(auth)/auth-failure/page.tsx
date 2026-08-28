@@ -12,8 +12,8 @@ export default function AuthFailurePage() {
         <div className="flex justify-center mb-4 text-red-500">
           <AlertCircle className="h-12 w-12" />
         </div>
-        <h1 className="text-xl font-semibold mb-2">Authentication Failed</h1>
-        <p className="text-sm text-muted mb-6">
+        <h1 className="text-xl font-semibold text-foreground mb-2">Authentication Failed</h1>
+        <p className="text-sm text-foreground/85 font-medium mb-6">
           Google OAuth login was not successful. Please try again.
         </p>
         <Link

@@ -79,7 +79,7 @@ export function FolderCard({ folder, selected = false, onContextMenu }: FolderCa
 
       <button
         onClick={handleMoreClick}
-        className="p-1 rounded-full text-muted hover:text-foreground hover:bg-surface-high transition-colors shrink-0 opacity-80 group-hover:opacity-100"
+        className="p-1 rounded-full text-foreground/80 hover:text-foreground hover:bg-surface-high transition-colors shrink-0 opacity-80 group-hover:opacity-100"
         aria-label={`More actions for ${folder.name}`}
       >
         <MoreVertical className="h-4 w-4" />

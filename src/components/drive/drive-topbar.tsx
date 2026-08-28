@@ -37,7 +37,7 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
   };
 
   return (
-    <header className="drive-topbar px-4 py-3">
+    <header className="drive-topbar items-center">
       <div className="flex items-center gap-2">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -48,11 +48,11 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
         </button>
         <div className="drive-brand cursor-pointer">
           <ProductLogo className="h-9 w-9 text-primary" />
-          <Wordmark className="drive-brand-label text-xl font-normal text-gray-700 dark:text-gray-200" />
+          <Wordmark className="drive-brand-label text-xl font-normal text-foreground" />
         </div>
       </div>
 
-      <div className="min-w-0 w-full max-w-3xl md:mx-auto">
+      <div className="min-w-0 w-full max-w-3xl md:mx-auto flex items-center self-center my-auto">
         <DriveSearch />
       </div>
 
@@ -60,35 +60,35 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
         <ThemeMenu />
 
         <button
-          className="drive-topbar-action text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-full hidden sm:flex"
+          className="drive-topbar-action hidden sm:flex"
           title="Support / Help"
         >
           <HelpCircle className="h-5 w-5" />
         </button>
 
         <button
-          className="drive-topbar-action text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-full hidden sm:flex"
+          className="drive-topbar-action hidden sm:flex"
           title="Settings"
         >
           <Settings className="h-5 w-5" />
         </button>
 
         <button
-          className="drive-topbar-action text-amber-500 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-full hidden sm:flex"
+          className="drive-topbar-action text-amber-500 hover:text-amber-600 hidden sm:flex"
           title="Gemini AI"
         >
           <Sparkles className="h-5 w-5 fill-amber-400/20 text-amber-500" />
         </button>
 
         <button
-          className="bg-[#d3e3fd] hover:bg-[#c2e7ff] text-[#041e49] font-medium text-xs md:text-sm px-4 py-2 rounded-full transition-colors hidden md:inline-flex items-center justify-center shadow-2xs"
+          className="bg-primary-container hover:bg-primary/20 text-on-primary-container font-medium text-xs md:text-sm px-4 py-2 rounded-full transition-colors hidden md:inline-flex items-center justify-center shadow-xs"
           title="Upgrade Storage"
         >
           Upgrade
         </button>
 
         <button
-          className="drive-topbar-action text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-full"
+          className="drive-topbar-action"
           title="Google apps"
         >
           <Grid3X3 className="h-5 w-5" />
@@ -97,7 +97,7 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
         {user ? (
           <div className="relative group">
             <button
-              className="h-8 w-8 rounded-full bg-[#00897b] text-white font-semibold flex items-center justify-center text-sm shadow-xs transition-transform hover:scale-105"
+              className="h-8 w-8 rounded-full bg-primary text-primary-foreground font-semibold flex items-center justify-center text-sm shadow-xs transition-transform hover:scale-105"
               aria-label="Open account menu"
             >
               {!avatarError && user.avatar ? (
@@ -113,14 +113,14 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
             </button>
             
             <div className="drive-account-menu group-focus-within:opacity-100 group-focus-within:pointer-events-auto group-hover:opacity-100 group-hover:pointer-events-auto">
-              <div className="border-b border-outline-soft px-4 py-3">
+              <div className="border-b border-border px-4 py-3">
                 <p className="text-sm font-semibold text-foreground truncate">{user.name}</p>
-                <p className="truncate text-xs text-muted mt-0.5">{user.email}</p>
+                <p className="truncate text-xs text-foreground/85 font-medium mt-0.5">{user.email}</p>
               </div>
               <div className="p-1">
                 <button
                   onClick={onLogout}
-                  className="w-full rounded px-3 py-2 text-left text-sm text-danger transition-colors hover:bg-surface-low font-medium"
+                  className="w-full rounded px-3 py-2 text-left text-sm text-destructive transition-colors hover:bg-surface-low font-medium"
                 >
                   Sign out
                 </button>
@@ -128,7 +128,7 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
             </div>
           </div>
         ) : (
-          <div className="h-8 w-8 rounded-full bg-[#00897b] text-white font-semibold flex items-center justify-center text-sm">
+          <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground font-semibold flex items-center justify-center text-sm">
             A
           </div>
         )}

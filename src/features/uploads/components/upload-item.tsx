@@ -45,7 +45,7 @@ export function UploadItem({ task }: UploadItemProps) {
         )}
         
         {task.status === "failed" && (
-          <span className="text-red-500" title={task.error}>
+          <span className="text-destructive" title={task.error}>
             <AlertCircle className="h-5 w-5" />
           </span>
         )}

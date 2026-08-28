@@ -94,21 +94,21 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 					</DriveButton>
 
 					{dropdownOpen && (
-						<div className="absolute left-0 mt-1 w-52 rounded-xl bg-surface py-2 shadow-menu border border-outline-soft z-50 animate-in fade-in zoom-in-95 duration-100">
+						<div className="absolute left-0 mt-1 w-52 rounded-xl bg-card py-2 shadow-menu border border-border z-50 animate-in fade-in zoom-in-95 duration-100">
 							<button
 								type="button"
 								onClick={handleCreateFolder}
-								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-muted hover:bg-surface-low transition-colors"
+								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-foreground hover:bg-surface-low transition-colors font-medium"
 							>
-								<FolderPlus className="h-4 w-4" />
+								<FolderPlus className="h-4 w-4 text-foreground shrink-0" />
 								<span>Create folder</span>
 							</button>
 							<button
 								type="button"
 								onClick={handleUploadFile}
-								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-muted hover:bg-surface-low transition-colors"
+								className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-foreground hover:bg-surface-low transition-colors font-medium"
 							>
-								<Upload className="h-4 w-4" />
+								<Upload className="h-4 w-4 text-foreground shrink-0" />
 								<span>Upload file</span>
 							</button>
 						</div>

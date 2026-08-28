@@ -1,80 +1,85 @@
 @import "tailwindcss";
 
-/* Manual dark mode supports either <html class="dark"> or
-   <html data-theme="dark">. Without either, the light theme is used. */
-@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:is(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
-/* Tailwind v4 theme namespaces generate utilities such as bg-canvas,
-   text-foreground, rounded-panel, shadow-menu, and 3xl:*. */
-@theme inline {
-  --font-sans: var(--ui-font-sans);
-  --font-display: var(--ui-font-display);
-
-  --color-canvas: var(--ui-canvas);
-  --color-surface: var(--ui-surface);
-  --color-surface-low: var(--ui-surface-low);
-  --color-surface-high: var(--ui-surface-high);
-  --color-surface-highest: var(--ui-surface-highest);
-  --color-foreground: var(--ui-foreground);
-  --color-muted: var(--ui-muted);
-  --color-subtle: var(--ui-subtle);
-  --color-outline: var(--ui-outline);
-  --color-outline-soft: var(--ui-outline-soft);
-  --color-primary: var(--ui-primary);
-  --color-primary-hover: var(--ui-primary-hover);
-  --color-primary-container: var(--ui-primary-container);
-  --color-on-primary-container: var(--ui-on-primary-container);
-  --color-success: var(--ui-success);
-  --color-danger: var(--ui-danger);
-  --color-folder: var(--ui-folder);
-
-  --radius-control: 1.5rem;
-  --radius-card: 0.75rem;
-  --radius-panel: 1.25rem;
-
-  --shadow-control: var(--ui-shadow-control);
-  --shadow-menu: var(--ui-shadow-menu);
-  --shadow-dialog: var(--ui-shadow-dialog);
-
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --breakpoint-3xl: 120rem;
-}
-
-/* Runtime design tokens belong in :root instead of @theme because they do not
-   need to generate utilities or they change between color schemes. */
 :root {
-  color-scheme: light;
+  --background: #f6f8fc;
+  --foreground: #1f1f1f;
+  --card: #ffffff;
+  --card-foreground: #1f1f1f;
+  --popover: #ffffff;
+  --popover-foreground: #1f1f1f;
+  --primary: #0b57d0;
+  --primary-foreground: #ffffff;
+  --secondary: #e9eef6;
+  --secondary-foreground: #1f1f1f;
+  --muted: #f0f4f9;
+  --muted-foreground: #444746;
+  --accent: #c2e7ff;
+  --accent-foreground: #041e49;
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+  --border: #e1e3e1;
+  --input: #e9eef6;
+  --ring: #0b57d0;
+  --chart-1: #0b57d0;
+  --chart-2: #1a73e8;
+  --chart-3: #188038;
+  --chart-4: #f9ab00;
+  --chart-5: #d93025;
+  --sidebar: #f6f8fc;
+  --sidebar-foreground: #1f1f1f;
+  --sidebar-primary: #0b57d0;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #c2e7ff;
+  --sidebar-accent-foreground: #041e49;
+  --sidebar-border: #e1e3e1;
+  --sidebar-ring: #0b57d0;
+  --font-sans: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Fira Code, monospace;
+  --radius: 0.5rem;
+  --radius-panel: 1.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 6px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.12;
+  --shadow-color: hsl(240 30% 25%);
+  --shadow-2xs: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --shadow-xs: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0px 4px 12px 0px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0px 8px 24px 0px rgba(0, 0, 0, 0.14);
+  --shadow-xl: 0px 12px 32px 0px rgba(0, 0, 0, 0.16);
+  --shadow-2xl: 0px 16px 48px 0px rgba(0, 0, 0, 0.20);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
 
-  --ui-font-sans: "Google Sans Text", "Google Sans", Roboto, Arial, sans-serif;
-  --ui-font-display: "Google Sans", "Google Sans Text", Roboto, Arial, sans-serif;
+  /* Centralized semantic aliases mapped to reference theme variables */
+  --canvas: var(--background);
+  --surface: var(--card);
+  --surface-low: #f0f4f9;
+  --surface-high: #e9eef6;
+  --surface-highest: #e1e7ef;
+  --subtle: var(--muted-foreground);
+  --outline: var(--border);
+  --outline-soft: #c4c7c5;
+  --primary-hover: #0842a0;
+  --primary-container: #c2e7ff;
+  --on-primary-container: #041e49;
+  --success: #188038;
+  --danger: var(--destructive);
+  --folder: #444746;
+  --scrim: rgb(0 0 0 / 0.4);
 
-  --ui-canvas: #f8fafd;
-  --ui-surface: #ffffff;
-  --ui-surface-low: #f3f6fc;
-  --ui-surface-high: #e9eef6;
-  --ui-surface-highest: #dde3ea;
-  --ui-foreground: #1f1f1f;
-  --ui-muted: #444746;
-  --ui-subtle: #5f6368;
-  --ui-outline: #747775;
-  --ui-outline-soft: #c4c7c5;
-  --ui-primary: #0b57d0;
-  --ui-primary-hover: #0842a0;
-  --ui-primary-container: #c2e7ff;
-  --ui-on-primary-container: #001d35;
-  --ui-success: #1e8e3e;
-  --ui-danger: #b3261e;
-  --ui-folder: #f9c74f;
-  --ui-scrim: rgb(31 31 31 / 0.4);
-
-  --ui-shadow-control:
-    0 1px 2px rgb(60 64 67 / 0.3),
-    0 1px 3px 1px rgb(60 64 67 / 0.15);
-  --ui-shadow-menu: 0 2px 6px 2px rgb(60 64 67 / 0.15);
-  --ui-shadow-dialog: 0 8px 24px rgb(60 64 67 / 0.22);
+  --shadow-control: var(--shadow-sm);
+  --shadow-menu: var(--shadow-md);
+  --shadow-dialog: var(--shadow-lg);
 
   --layout-topbar: clamp(3.5rem, 3.25rem + 0.75vw, 4rem);
-  --layout-sidebar: clamp(12rem, 16.7vw, 20rem);
+  --layout-sidebar: clamp(12rem, 16.7vw, 16rem);
   --layout-gutter: clamp(0.75rem, 0.5rem + 0.75vw, 1.5rem);
   --layout-content-gap: clamp(0.5rem, 0.35rem + 0.45vw, 1rem);
   --layout-section-gap: clamp(1.25rem, 0.9rem + 1vw, 2.25rem);
@@ -87,50 +92,150 @@
   --text-ui: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
   --text-title: clamp(1.25rem, 1.05rem + 0.65vw, 1.75rem);
 
-  --focus-ring: 0 0 0 2px var(--ui-surface), 0 0 0 4px var(--ui-primary);
-  --motion-fast: 120ms var(--ease-standard);
-  --motion-standard: 200ms var(--ease-standard);
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--primary);
+  --motion-fast: 120ms cubic-bezier(0.2, 0, 0, 1);
+  --motion-standard: 200ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-:where(.dark, [data-theme="dark"]) {
-  color-scheme: dark;
+.dark, [data-theme="dark"] {
+  --background: #131314;
+  --foreground: #e3e2e6;
+  --card: #1e1f20;
+  --card-foreground: #e3e2e6;
+  --popover: #252629;
+  --popover-foreground: #e3e2e6;
+  --primary: #a8c7fa;
+  --primary-foreground: #062e6f;
+  --secondary: #282a2d;
+  --secondary-foreground: #e3e2e6;
+  --muted: #282a2d;
+  --muted-foreground: #c4c7c5;
+  --accent: #004a77;
+  --accent-foreground: #c2e7ff;
+  --destructive: #f2b8b5;
+  --destructive-foreground: #601410;
+  --border: #444746;
+  --input: #2f3136;
+  --ring: #a8c7fa;
+  --chart-1: #a8c7fa;
+  --chart-2: #8ab4f8;
+  --chart-3: #81c995;
+  --chart-4: #fde293;
+  --chart-5: #f28b82;
+  --sidebar: #131314;
+  --sidebar-foreground: #e3e2e6;
+  --sidebar-primary: #a8c7fa;
+  --sidebar-primary-foreground: #062e6f;
+  --sidebar-accent: #004a77;
+  --sidebar-accent-foreground: #c2e7ff;
+  --sidebar-border: #444746;
+  --sidebar-ring: #a8c7fa;
 
-  --ui-canvas: #0f1113;
-  --ui-surface: #17191c;
-  --ui-surface-low: #1e2226;
-  --ui-surface-high: #252a30;
-  --ui-surface-highest: #30363d;
-  --ui-foreground: #e3e3e3;
-  --ui-muted: #c4c7c5;
-  --ui-subtle: #a9acaa;
-  --ui-outline: #8e918f;
-  --ui-outline-soft: #464b50;
-  --ui-primary: #a8c7fa;
-  --ui-primary-hover: #c2d7ff;
-  --ui-primary-container: #0842a0;
-  --ui-on-primary-container: #d3e3fd;
-  --ui-success: #6dd58c;
-  --ui-danger: #ffb4ab;
-  --ui-folder: #f6c453;
-  --ui-scrim: rgb(0 0 0 / 0.64);
+  /* Centralized semantic aliases for dark mode */
+  --canvas: var(--background);
+  --surface: var(--card);
+  --surface-low: #282a2d;
+  --surface-high: #2f3136;
+  --surface-highest: #3b3e43;
+  --subtle: var(--muted-foreground);
+  --outline: var(--border);
+  --outline-soft: #444746;
+  --primary-hover: #8ab4f8;
+  --primary-container: #004a77;
+  --on-primary-container: #c2e7ff;
+  --success: #81c995;
+  --danger: var(--destructive);
+}
 
-  --ui-shadow-control: 0 1px 2px rgb(0 0 0 / 0.42);
-  --ui-shadow-menu: 0 4px 12px rgb(0 0 0 / 0.48);
-  --ui-shadow-dialog: 0 12px 32px rgb(0 0 0 / 0.56);
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-low: var(--surface-low);
+  --color-surface-high: var(--surface-high);
+  --color-surface-highest: var(--surface-highest);
+  --color-subtle: var(--subtle);
+  --color-outline: var(--outline);
+  --color-outline-soft: var(--outline-soft);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-folder: var(--folder);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+  --font-display: var(--font-sans);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-control: 1.5rem;
+  --radius-card: 0.75rem;
+  --radius-panel: 1.25rem;
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+  --shadow-control: var(--shadow-control);
+  --shadow-menu: var(--shadow-menu);
+  --shadow-dialog: var(--shadow-dialog);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --breakpoint-3xl: 120rem;
 }
 
 @layer base {
   *,
   *::before,
   *::after {
-    border-color: var(--ui-outline-soft);
+    @apply border-border outline-ring/50;
   }
 
   html {
     min-width: 20rem;
     min-height: 100%;
-    background: var(--ui-canvas);
-    font-family: var(--ui-font-sans);
+    @apply bg-background text-foreground font-sans;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
@@ -138,8 +243,7 @@
   body {
     min-height: 100dvh;
     margin: 0;
-    background: var(--ui-canvas);
-    color: var(--ui-foreground);
+    @apply bg-background text-foreground;
     font-size: var(--text-body);
   }
 
@@ -157,148 +261,79 @@
   }
 
   :where(button, [role="button"], a, input, select, textarea):focus-visible {
-    border-radius: 0.25rem;
+    border-radius: var(--radius);
     outline: none;
     box-shadow: var(--focus-ring);
   }
 
   ::selection {
-    background: var(--ui-primary-container);
-    color: var(--ui-on-primary-container);
+    @apply bg-primary-container text-on-primary-container;
   }
 
   * {
-    scrollbar-color: var(--ui-outline) transparent;
+    scrollbar-color: var(--outline) transparent;
     scrollbar-width: thin;
   }
 }
 
 @layer components {
-  /* Mobile-first app shell. The sidebar is a drawer until md, becomes an icon
-     rail at md, and expands to the full reference sidebar at lg. */
   .drive-shell {
     display: grid;
     grid-template:
       "topbar" var(--layout-topbar)
       "content" minmax(0, calc(100dvh - var(--layout-topbar)))
       / minmax(0, 1fr);
-    min-height: 100dvh;
-    overflow: hidden;
-    background: var(--ui-canvas);
+    @apply min-h-screen overflow-hidden bg-background;
   }
 
   .drive-topbar {
     grid-area: topbar;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
+    @apply items-center bg-background;
     gap: clamp(0.5rem, 1vw, 1rem);
     padding-inline: clamp(0.5rem, 1.2vw, 1.5rem);
-    background: var(--ui-canvas);
   }
 
   .drive-topbar-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
-    color: var(--ui-muted);
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    transition: background-color var(--motion-fast), color var(--motion-fast);
-  }
-
-  .drive-topbar-action:hover {
-    background-color: var(--ui-surface-low);
-    color: var(--ui-foreground);
+    @apply inline-flex items-center justify-center h-10 w-10 rounded-full text-muted-foreground cursor-pointer bg-transparent border-0 transition-colors duration-150 hover:bg-surface-low hover:text-foreground;
   }
 
   .drive-avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 9999px;
-    overflow: hidden;
-    background-color: var(--ui-surface-high);
-    color: var(--ui-foreground);
-    font-weight: 500;
-    font-size: 0.875rem;
-    cursor: pointer;
-    border: 2px solid transparent;
-    box-shadow: 0 0 0 2px var(--ui-primary);
-    transition: box-shadow var(--motion-fast), transform var(--motion-fast);
+    @apply flex items-center justify-center h-9 w-9 rounded-full overflow-hidden bg-surface-high text-foreground font-medium text-sm cursor-pointer border-2 border-transparent transition-all duration-150;
+    box-shadow: 0 0 0 2px var(--primary);
   }
 
   .drive-avatar:hover {
-    box-shadow: 0 0 0 2px var(--ui-primary-hover), 0 0 0 4px var(--ui-primary-container);
+    box-shadow: 0 0 0 2px var(--primary-hover), 0 0 0 4px var(--primary-container);
   }
 
   .drive-avatar:active {
-    transform: scale(0.95);
+    @apply scale-95;
   }
 
   .drive-account-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    margin-top: 0.5rem;
-    width: 14rem;
-    background-color: var(--ui-surface);
-    border: 1px solid var(--ui-outline-soft);
-    border-radius: 0.5rem;
-    box-shadow: var(--ui-shadow-dialog);
-    z-index: 50;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--motion-fast);
+    @apply absolute right-0 top-full mt-2 w-56 bg-card border border-border rounded-lg shadow-lg z-50 opacity-0 pointer-events-none transition-opacity duration-150;
   }
 
   .drive-brand {
-    display: flex;
-    min-width: 0;
-    align-items: center;
-    gap: 0.625rem;
-    color: var(--ui-muted);
-    font-family: var(--ui-font-display);
+    @apply flex min-w-0 items-center gap-2.5 text-muted-foreground font-sans;
     font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
   }
 
   .drive-search {
-    display: flex;
+    @apply flex items-center gap-3 self-center my-auto border border-transparent rounded-full bg-surface-high text-foreground transition-all duration-150;
     width: min(100%, 65rem);
-    min-height: clamp(2.5rem, 2.2rem + 0.9vw, 3.2rem);
-    align-items: center;
-    gap: 0.75rem;
-    justify-self: start;
+    min-height: clamp(2.5rem, 2.2rem + 0.9vw, 3rem);
     padding-inline: clamp(0.875rem, 1.2vw, 1.25rem);
-    border: 1px solid transparent;
-    border-radius: 999px;
-    background: var(--ui-surface-high);
-    color: var(--ui-muted);
-    transition:
-      background-color var(--motion-fast),
-      border-color var(--motion-fast),
-      box-shadow var(--motion-fast);
   }
 
   .drive-search:focus-within {
-    border-color: var(--ui-outline-soft);
-    background: var(--ui-surface);
-    box-shadow: var(--ui-shadow-control);
+    @apply border-border bg-card shadow-sm;
   }
 
   .drive-search input {
-    width: 100%;
-    min-width: 0;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: var(--ui-foreground);
+    @apply w-full min-w-0 border-0 outline-none bg-transparent text-foreground placeholder:text-muted-foreground;
     font-size: var(--text-ui);
   }
 
@@ -307,26 +342,10 @@
     box-shadow: none !important;
   }
 
-  .drive-search input::placeholder {
-    color: var(--ui-subtle);
-  }
-
   .drive-sidebar {
-    position: fixed;
-    z-index: 60;
-    inset: 0 auto 0 0;
-    display: flex;
+    @apply fixed inset-y-0 left-0 z-50 flex flex-col gap-0.5 overflow-x-hidden overflow-y-auto p-4 bg-background shadow-lg transition-transform duration-200;
     width: min(20rem, 88vw);
-    min-height: 0;
-    flex-direction: column;
-    gap: 0.125rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 1rem;
-    background: var(--ui-canvas);
-    box-shadow: var(--ui-shadow-dialog);
     translate: -105% 0;
-    transition: translate var(--motion-standard);
   }
 
   .drive-sidebar[data-open="true"] {
@@ -334,46 +353,24 @@
   }
 
   .drive-sidebar-scrim {
-    position: fixed;
-    z-index: 50;
-    inset: 0;
-    border: 0;
-    background: var(--ui-scrim);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--motion-standard);
+    @apply fixed inset-0 z-40 border-0 opacity-0 pointer-events-none transition-opacity duration-200;
+    background: var(--scrim);
   }
 
   .drive-sidebar-scrim[data-open="true"] {
-    opacity: 1;
-    pointer-events: auto;
+    @apply opacity-100 pointer-events-auto;
   }
 
   .drive-new-button {
-    display: inline-flex;
+    @apply inline-flex items-center justify-start gap-3.5 my-0.5 mb-4 border-0 rounded-2xl bg-card text-foreground shadow-sm cursor-pointer transition-all duration-150;
     width: fit-content;
     min-width: 7.875rem;
     min-height: 3.5rem;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.875rem;
-    margin: 0.125rem 0 1rem;
     padding-inline: 1.25rem;
-    border: 0;
-    border-radius: 1rem;
-    background: var(--ui-surface);
-    color: var(--ui-foreground);
-    box-shadow: var(--ui-shadow-control);
-    cursor: pointer;
-    transition:
-      background-color var(--motion-fast),
-      box-shadow var(--motion-fast),
-      transform var(--motion-fast);
   }
 
   .drive-new-button:hover {
-    background: var(--ui-surface-low);
-    box-shadow: var(--ui-shadow-menu);
+    @apply bg-surface-low shadow-md;
   }
 
   .drive-new-button:active {
@@ -381,133 +378,85 @@
   }
 
   .drive-nav-group {
-    display: grid;
-    gap: 0.05rem;
-    margin-block-end: 0.3rem;
+    @apply grid gap-0.5 mb-1;
   }
 
   .drive-nav-item {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    gap: 0.875rem;
-    border: 0;
-    border-radius: 999px;
+    @apply flex w-full items-center gap-3.5 border-0 rounded-full bg-transparent text-foreground cursor-pointer text-left no-underline whitespace-nowrap transition-colors duration-150;
     padding-inline: 1rem;
-    background: transparent;
-    color: var(--ui-foreground);
-    cursor: pointer;
-    text-align: start;
-    text-decoration: none;
-    white-space: nowrap;
-    transition:
-      background-color var(--motion-fast),
-      color var(--motion-fast),
-      opacity var(--motion-fast);
   }
 
   .drive-nav-item:hover {
-    background: var(--ui-surface-high);
+    @apply bg-surface-high;
   }
 
   .drive-nav-item:is([aria-current="page"], [data-active="true"]) {
-    background: var(--ui-primary-container);
-    color: var(--ui-on-primary-container);
-    font-weight: 500;
+    @apply bg-primary-container text-on-primary-container font-medium;
   }
 
   .drive-nav-item:is([aria-disabled="true"], [data-disabled="true"]) {
-    opacity: 0.48;
-    cursor: not-allowed;
+    @apply opacity-50 cursor-not-allowed;
   }
 
   .drive-nav-icon {
-    display: grid;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex: none;
-    place-items: center;
+    @apply grid h-5 w-5 flex-none place-items-center;
   }
 
   .drive-storage {
-    margin-block-start: auto;
-    padding: 0.5rem 1rem 0;
+    @apply mt-auto pt-2 px-4 pb-0;
   }
 
   .drive-storage-meter {
-    height: 0.25rem;
-    overflow: hidden;
-    border-radius: 999px;
-    background: var(--ui-surface-highest);
+    @apply h-1 overflow-hidden rounded-full bg-muted;
   }
 
   .drive-storage-meter > span {
-    display: block;
-    width: min(var(--storage-used, 0%), 100%);
-    height: 100%;
+    @apply block h-full bg-primary transition-all duration-300;
     border-radius: inherit;
-    background: var(--ui-primary);
-    transition: width 400ms var(--ease-standard);
+    width: min(var(--storage-used, 0%), 100%);
   }
 
   .drive-content {
     grid-area: content;
-    min-width: 0;
-    min-height: 0;
-    overflow: hidden;
-    background: var(--ui-surface);
+    @apply min-w-0 min-h-0 overflow-hidden bg-card;
   }
 
   .drive-content-scroll {
-    height: 100%;
-    overflow: auto;
-    overscroll-behavior: contain;
+    @apply h-full overflow-auto overscroll-contain;
     padding: var(--layout-gutter);
     scrollbar-gutter: stable;
   }
 
   .drive-content-header {
-    position: sticky;
-    z-index: 20;
+    @apply sticky z-20 gap-3.5 backdrop-blur-md;
     top: calc(var(--layout-gutter) * -1);
     display: grid;
     gap: clamp(0.875rem, 1.25vw, 1.5rem);
     margin: calc(var(--layout-gutter) * -1) calc(var(--layout-gutter) * -1) 0;
     padding: var(--layout-gutter);
-    background: color-mix(in srgb, var(--ui-surface) 94%, transparent);
-    backdrop-filter: blur(0.75rem);
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
   }
 
   .drive-titlebar,
   .drive-toolbar,
   .drive-selection-toolbar {
-    display: flex;
-    min-width: 0;
-    align-items: center;
+    @apply flex min-w-0 items-center;
     gap: clamp(0.5rem, 0.8vw, 0.875rem);
   }
 
   .drive-titlebar {
-    min-height: 2.5rem;
-    justify-content: space-between;
+    @apply min-h-10 justify-between;
   }
 
   .drive-title {
-    overflow: hidden;
-    margin: 0;
-    font-family: var(--ui-font-display);
+    @apply overflow-hidden m-0 font-sans font-normal leading-tight truncate whitespace-nowrap;
     font-size: var(--text-title);
-    font-weight: 400;
-    line-height: 1.2;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .drive-toolbar {
-    flex-wrap: nowrap;
+    @apply flex-nowrap overflow-x-auto;
     margin-inline: calc(var(--layout-gutter) * -1);
     padding-inline: var(--layout-gutter);
-    overflow-x: auto;
     scrollbar-width: none;
   }
 
@@ -518,55 +467,34 @@
   .drive-chip,
   .drive-button-outline,
   .drive-icon-button {
-    display: inline-flex;
-    min-height: 2.5rem;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--ui-outline);
-    background: var(--ui-surface);
-    color: var(--ui-foreground);
-    cursor: pointer;
-    transition:
-      background-color var(--motion-fast),
-      border-color var(--motion-fast),
-      color var(--motion-fast);
+    @apply inline-flex min-h-10 items-center justify-center border border-border bg-card text-foreground cursor-pointer transition-colors duration-150;
   }
 
   .drive-chip,
   .drive-button-outline {
-    flex: none;
-    gap: 0.5rem;
+    @apply flex-none gap-2 rounded-lg;
     padding-inline: clamp(0.75rem, 1vw, 1.125rem);
-    border-radius: 0.625rem;
   }
 
   .drive-icon-button {
-    width: 2.5rem;
-    flex: 0 0 2.5rem;
-    border-color: transparent;
-    border-radius: 999px;
+    @apply w-10 flex-none border-transparent rounded-full;
   }
 
   .drive-chip:hover,
   .drive-button-outline:hover,
   .drive-icon-button:hover {
-    background: var(--ui-surface-low);
+    @apply bg-surface-low;
   }
 
   .drive-chip[aria-pressed="true"],
   .drive-icon-button[aria-pressed="true"] {
-    border-color: transparent;
-    background: var(--ui-primary-container);
-    color: var(--ui-on-primary-container);
+    @apply border-transparent bg-primary-container text-on-primary-container;
   }
 
   :where(.drive-new-button, .drive-chip, .drive-button-outline, .drive-icon-button):disabled {
-    opacity: 0.48;
-    cursor: not-allowed;
+    @apply opacity-50 cursor-not-allowed;
   }
 
-  /* Apply @container to this element in markup too when Tailwind container
-     variants are needed by children: class="drive-browser @container/browser". */
   .drive-browser {
     container-name: browser;
     container-type: inline-size;
@@ -577,10 +505,8 @@
   }
 
   .drive-section-heading {
-    margin: 0 0 0.75rem;
-    color: var(--ui-muted);
+    @apply m-0 mb-3 text-muted-foreground font-medium;
     font-size: var(--text-body);
-    font-weight: 500;
   }
 
   .drive-grid {
@@ -591,236 +517,134 @@
 
   .drive-folder-card,
   .drive-file-card {
-    min-width: 0;
-    overflow: hidden;
-    border: 1px solid transparent;
-    border-radius: var(--radius-card);
-    background: var(--ui-surface-low);
-    color: var(--ui-foreground);
-    transition:
-      background-color var(--motion-fast),
-      border-color var(--motion-fast),
-      box-shadow var(--motion-fast),
-      transform var(--motion-fast);
+    @apply min-w-0 overflow-hidden border border-transparent rounded-xl bg-surface-low text-foreground transition-all duration-150;
   }
 
   .drive-folder-card {
-    display: flex;
+    @apply flex items-center gap-3 px-4 py-2;
     min-height: clamp(3.5rem, 3.25rem + 0.75vw, 4rem);
-    align-items: center;
-    gap: 0.75rem;
-    padding-inline: 1rem 0.5rem;
   }
 
   .drive-file-card {
-    display: grid;
-    grid-template-rows: auto 1fr;
+    @apply grid grid-rows-[auto_1fr];
   }
 
   .drive-card-header {
-    display: flex;
-    min-width: 0;
-    min-height: 3.5rem;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    @apply flex min-w-0 min-h-14 items-center gap-3 p-2 pl-4;
   }
 
   .drive-card-name {
-    min-width: 0;
-    flex: 1;
-    overflow: hidden;
-    font-weight: 500;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @apply min-w-0 flex-1 overflow-hidden font-medium truncate whitespace-nowrap;
   }
 
   .drive-card-preview {
-    display: grid;
-    aspect-ratio: 4 / 3;
-    margin: 0 0.5rem 0.5rem;
-    overflow: hidden;
-    border-radius: 0.25rem;
-    background: var(--ui-surface);
-    color: var(--ui-muted);
-    place-items: center;
+    @apply grid aspect-[4/3] m-2 mt-0 overflow-hidden rounded bg-card text-muted-foreground place-items-center;
   }
 
   .drive-card-preview > :where(img, video, canvas) {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    @apply w-full h-full object-contain;
   }
 
   .drive-folder-card:hover,
   .drive-file-card:hover {
-    background: var(--ui-surface-high);
+    @apply bg-surface-high;
   }
 
   .drive-folder-card:is([aria-selected="true"], [data-selected="true"]),
   .drive-file-card:is([aria-selected="true"], [data-selected="true"]) {
-    border-color: var(--ui-primary);
-    background: var(--ui-primary-container);
-    color: var(--ui-on-primary-container);
-    box-shadow: inset 0 0 0 1px var(--ui-primary);
+    @apply border-primary bg-primary-container text-on-primary-container;
+    box-shadow: inset 0 0 0 1px var(--primary);
   }
 
   .drive-list {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    table-layout: fixed;
+    @apply w-full border-collapse table-fixed;
   }
 
   .drive-list th {
-    height: 2.75rem;
-    border-bottom: 1px solid var(--ui-outline-soft);
-    color: var(--ui-muted);
-    font-weight: 500;
-    text-align: start;
+    @apply h-11 border-b border-border text-foreground font-medium text-left;
   }
 
   .drive-list-row {
     height: var(--layout-row-height);
-    cursor: pointer;
+    @apply cursor-pointer;
   }
 
   .drive-list-row > * {
-    border-bottom: 1px solid var(--ui-outline-soft);
+    @apply border-b border-border;
   }
 
   .drive-list-row:hover > * {
-    background: var(--ui-surface-low);
+    @apply bg-surface-low;
   }
 
   .drive-list-row[aria-selected="true"] > * {
-    background: var(--ui-primary-container);
-    color: var(--ui-on-primary-container);
+    @apply bg-primary-container text-on-primary-container;
   }
 
   .drive-menu {
+    @apply overflow-hidden py-2 border border-border rounded-lg bg-card text-foreground shadow-md;
     width: min(25rem, calc(100vw - 2rem));
-    overflow: hidden;
-    padding-block: 0.5rem;
-    border: 1px solid var(--ui-outline-soft);
-    border-radius: 0.5rem;
-    background: var(--ui-surface);
-    color: var(--ui-foreground);
-    box-shadow: var(--ui-shadow-menu);
   }
 
   .drive-menu-item {
-    display: flex;
-    width: 100%;
-    min-height: 3rem;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.625rem 1rem;
-    border: 0;
-    background: transparent;
-    color: var(--ui-muted);
-    cursor: pointer;
-    text-align: start;
-  }
-
-  .drive-menu-item:hover {
-    background: var(--ui-surface-low);
+    @apply flex w-full min-h-12 items-center gap-4 px-4 py-2.5 border-0 bg-transparent text-foreground cursor-pointer text-left hover:bg-surface-low;
   }
 
   .drive-menu-item:is(:disabled, [aria-disabled="true"]) {
-    opacity: 0.48;
-    cursor: not-allowed;
+    @apply opacity-50 cursor-not-allowed;
   }
 
   .drive-menu-separator {
-    height: 1px;
-    margin-block: 0.5rem;
-    background: var(--ui-outline-soft);
+    @apply h-px my-2 bg-border;
   }
 
   .drive-upload-panel {
-    position: fixed;
-    z-index: 70;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--ui-primary) 68%, transparent);
-    border-bottom: 0;
-    border-radius: 1rem 1rem 0 0;
-    background: var(--ui-surface);
-    color: var(--ui-foreground);
-    box-shadow: var(--ui-shadow-dialog);
+    @apply fixed z-50 right-0 bottom-0 w-full overflow-hidden border border-primary/60 border-b-0 rounded-t-2xl bg-card text-foreground shadow-lg;
   }
 
   .drive-upload-header,
   .drive-upload-item {
-    display: flex;
     min-height: 4.25rem;
-    align-items: center;
-    gap: 1rem;
+    @apply flex items-center gap-4;
     padding-inline: clamp(1rem, 1.5vw, 1.5rem);
   }
 
   .drive-upload-header {
-    justify-content: space-between;
+    @apply justify-between;
     font-size: var(--text-ui);
   }
 
   .drive-upload-item {
-    border-top: 1px solid var(--ui-outline-soft);
-    color: var(--ui-muted);
+    @apply border-t border-border text-muted-foreground;
   }
 
   .drive-upload-progress {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-inline-start: auto;
-    border: 0.25rem solid var(--ui-surface-highest);
-    border-top-color: var(--ui-primary);
-    border-radius: 999px;
-    animation: drive-spin 800ms linear infinite;
+    @apply h-6 w-6 ml-auto border-4 border-muted border-t-primary rounded-full animate-spin;
   }
 
   .drive-upload-success {
-    display: grid;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-inline-start: auto;
-    border-radius: 999px;
-    background: var(--ui-success);
-    color: var(--ui-surface);
-    place-items: center;
+    @apply grid h-6 w-6 ml-auto rounded-full bg-success text-card place-items-center;
   }
 
   .drive-empty-state {
-    display: grid;
+    @apply grid place-content-center justify-items-center gap-3 p-8 text-muted-foreground text-center;
     min-height: min(30rem, 55dvh);
-    place-content: center;
-    justify-items: center;
-    gap: 0.75rem;
-    padding: 2rem;
-    color: var(--ui-muted);
-    text-align: center;
   }
 
   .drive-skeleton {
-    position: relative;
-    overflow: hidden;
-    background: var(--ui-surface-high);
+    @apply relative overflow-hidden bg-surface-high;
   }
 
   .drive-skeleton::after {
-    position: absolute;
-    inset: 0;
+    @apply absolute inset-0;
     animation: drive-shimmer 1.4s infinite;
-    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ui-surface) 65%, transparent), transparent);
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 65%, transparent), transparent);
     content: "";
     transform: translateX(-100%);
   }
 }
 
-/* Component responsiveness is based on available browser width, not viewport. */
+/* Container query responsiveness */
 @container browser (width >= 24rem) {
   .drive-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

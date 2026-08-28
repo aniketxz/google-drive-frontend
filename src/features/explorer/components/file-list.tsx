@@ -86,11 +86,11 @@ export function FileList({ items, onContextMenu, onFileDoubleClick }: FileListPr
                 </div>
               </td>
               
-              <td className="drive-modified-column px-4 py-2 text-muted text-sm">
+              <td className="drive-modified-column px-4 py-2 text-foreground text-sm">
                 {formatDate(item.updatedAt)}
               </td>
               
-              <td className="drive-size-column px-4 py-2 text-muted text-sm">
+              <td className="drive-size-column px-4 py-2 text-foreground text-sm">
                 {item.kind === "file" ? formatBytes(item.size) : "—"}
               </td>
               

@@ -179,15 +179,15 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
           <Breadcrumbs currentFolder={currentFolder} ancestors={ancestors} />
           
           <div className="flex items-center gap-2 shrink-0">
-            {/* View layout pill container matching Google Drive (without check mark) */}
-            <div className="flex items-center rounded-full border border-gray-300/80 dark:border-zinc-700 bg-gray-100/60 dark:bg-zinc-800/60 p-0.5 shadow-2xs">
+            {/* View layout pill container matching Google Drive */}
+            <div className="flex items-center rounded-full border border-border bg-surface-low p-0.5 shadow-2xs">
               <button
                 onClick={() => setViewMode("list")}
                 className={cn(
                   "p-1.5 rounded-full transition-all duration-150",
                   viewMode === "list"
-                    ? "bg-[#c2e7ff] text-[#001d35] dark:bg-[#0842a0] dark:text-[#d3e3fd] shadow-2xs"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-zinc-700/60"
+                    ? "bg-primary-container text-on-primary-container shadow-2xs"
+                    : "text-foreground hover:bg-surface-high"
                 )}
                 aria-pressed={viewMode === "list"}
                 title="List view"
@@ -199,8 +199,8 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
                 className={cn(
                   "p-1.5 rounded-full transition-all duration-150",
                   viewMode === "grid"
-                    ? "bg-[#c2e7ff] text-[#001d35] dark:bg-[#0842a0] dark:text-[#d3e3fd] shadow-2xs"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-zinc-700/60"
+                    ? "bg-primary-container text-on-primary-container shadow-2xs"
+                    : "text-foreground hover:bg-surface-high"
                 )}
                 aria-pressed={viewMode === "grid"}
                 title="Grid view"
@@ -213,8 +213,8 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
               onClick={handleToggleDetails}
               disabled={selectedIds.size === 0}
               className={cn(
-                "p-2 rounded-full border border-gray-300/80 dark:border-zinc-700 bg-gray-100/60 dark:bg-zinc-800/60 text-gray-600 dark:text-gray-300 hover:bg-gray-200/60 dark:hover:bg-zinc-700/60 transition-colors",
-                detailsItemId && "bg-[#c2e7ff] text-[#001d35] dark:bg-[#0842a0] dark:text-[#d3e3fd] border-transparent",
+                "p-2 rounded-full border border-border bg-surface-low text-foreground hover:bg-surface-high transition-colors",
+                detailsItemId && "bg-primary-container text-on-primary-container border-transparent",
                 selectedIds.size === 0 && "opacity-50 cursor-not-allowed"
               )}
               title="View details"
@@ -224,27 +224,27 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
           </div>
         </div>
 
-        {/* Filter Bar with Ask Drive badge & styled filter chips matching image (no dropdown mark) */}
+        {/* Filter Bar with Ask Gemini badge & styled filter chips */}
         <div className="drive-toolbar flex flex-wrap items-center gap-2 pt-1">
           <button
-            className="bg-[#d3e3fd] hover:bg-[#c2e7ff] text-[#041e49] text-xs font-medium px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-2xs transition-colors shrink-0 cursor-pointer"
+            className="bg-primary-container hover:bg-primary/20 text-on-primary-container text-xs font-medium px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-2xs transition-colors shrink-0 cursor-pointer"
             type="button"
-            title="Ask Drive"
+            title="Ask Gemini"
           >
-            <Sparkles className="h-4 w-4 fill-blue-600 text-blue-600" />
-            <span>Ask Drive</span>
+            <Sparkles className="h-4 w-4 fill-primary text-primary" />
+            <span>Ask Gemini</span>
           </button>
 
-          <span className="h-5 w-[1px] bg-gray-300 dark:bg-zinc-700 mx-0.5 shrink-0" aria-hidden="true" />
+          <span className="h-5 w-[1px] bg-border mx-0.5 shrink-0" aria-hidden="true" />
 
-          {/* Functional filter badges (All, Folders, PDFs, Images, Videos, Documents, Spreadsheets) */}
+          {/* Functional filter badges */}
           {filterOptions.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setTypeFilter(opt.value)}
               className={cn(
-                "bg-white dark:bg-zinc-800 border border-gray-300/80 dark:border-zinc-700 text-gray-700 dark:text-gray-200 text-xs font-medium px-3.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-700/60 transition-colors shrink-0 cursor-pointer",
-                typeFilter === opt.value && "bg-[#c2e7ff] text-[#001d35] dark:bg-[#0842a0] dark:text-[#d3e3fd] border-transparent font-semibold shadow-2xs"
+                "bg-card border border-border text-foreground text-xs font-medium px-3.5 py-1.5 rounded-xl hover:bg-surface-low transition-colors shrink-0 cursor-pointer",
+                typeFilter === opt.value && "bg-primary-container text-on-primary-container border-transparent font-semibold shadow-2xs"
               )}
               aria-pressed={typeFilter === opt.value}
             >
@@ -255,7 +255,7 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
           {inTrash && processedItems.length > 0 && (
             <button
               onClick={() => openDialog("emptyTrash")}
-              className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-300 text-xs font-semibold px-3 py-1.5 rounded-xl hover:bg-rose-100 transition-colors ml-auto cursor-pointer"
+              className="bg-destructive/10 border border-destructive/20 text-destructive text-xs font-semibold px-3 py-1.5 rounded-xl hover:bg-destructive/20 transition-colors ml-auto cursor-pointer"
             >
               Empty trash
             </button>
@@ -265,9 +265,9 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
 
           <button
             onClick={handleSortCycle}
-            className="bg-white dark:bg-zinc-800 border border-gray-300/80 dark:border-zinc-700 text-gray-700 dark:text-gray-200 text-xs font-medium px-3.5 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-700/60 transition-colors shrink-0 flex items-center gap-1.5 cursor-pointer"
+            className="bg-card border border-border text-foreground text-xs font-medium px-3.5 py-1.5 rounded-xl hover:bg-surface-low transition-colors shrink-0 flex items-center gap-1.5 cursor-pointer"
           >
-            <ArrowUpDown className="h-3.5 w-3.5 text-gray-500" />
+            <ArrowUpDown className="h-3.5 w-3.5 text-foreground" />
             <span>Sort: {getSortLabel()}</span>
           </button>
         </div>
@@ -277,8 +277,8 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
         <div className="flex-grow min-w-0">
           {processedItems.length === 0 ? (
             <div className="drive-empty-state py-16 text-center flex flex-col items-center justify-center">
-              <p className="font-medium text-muted">No items found</p>
-              <p className="mt-1 text-xs text-subtle">This folder is empty or matches no filters.</p>
+              <p className="font-medium text-foreground text-base">No items found</p>
+              <p className="mt-1 text-xs text-foreground/75">This folder is empty or matches no filters.</p>
             </div>
           ) : viewMode === "grid" ? (
             <FileGrid

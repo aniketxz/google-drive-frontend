@@ -30,7 +30,7 @@ export function DriveMenu({ actions, onAction, className }: DriveMenuProps) {
             onClick={() => action.enabled && onAction(action.id)}
             className={cn(
               "drive-menu-item flex items-center w-full text-left",
-              action.destructive && "text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/20"
+              action.destructive && "text-destructive hover:bg-destructive/10"
             )}
           >
             <action.icon className="h-4 w-4 flex-shrink-0" />

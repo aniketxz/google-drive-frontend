@@ -37,6 +37,6 @@ export function FileKindIcon({ kind, className, ...props }: FileKindIconProps) {
     case "archive":
       return <Archive className={cn("text-amber-600", className)} {...props} />;
     default:
-      return <File className={cn("text-zinc-400", className)} {...props} />;
+      return <File className={cn("text-subtle", className)} {...props} />;
   }
 }

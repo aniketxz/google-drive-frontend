@@ -20,21 +20,21 @@ export function StorageMeter({ used, total }: StorageMeterProps) {
       
       {/* Usage details centered below */}
       <div className="flex flex-col gap-1.5 px-4 pt-1">
-        <div className="h-1.25 w-full bg-gray-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+        <div className="h-1.25 w-full bg-surface-highest rounded-full overflow-hidden">
           <div
             className="h-1.25 bg-primary rounded-full transition-all duration-300"
             style={{ width: `${Math.max(percentage, 2)}%` }}
           />
         </div>
         
-        <div className="text-xs text-center text-gray-600 dark:text-gray-400 font-normal">
+        <div className="text-xs text-center text-foreground font-medium">
           {formatBytes(used)} of {formatBytes(total)} used
         </div>
 
         <button
           disabled
           aria-disabled="true"
-          className="w-full rounded-full border border-gray-300 dark:border-zinc-600 py-2 px-4 text-center text-xs font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-zinc-800/60 transition-colors opacity-90 cursor-pointer"
+          className="w-full rounded-full border border-border py-2 px-4 text-center text-xs font-medium text-primary hover:bg-surface-low transition-colors opacity-90 cursor-pointer"
         >
           Get more storage
         </button>

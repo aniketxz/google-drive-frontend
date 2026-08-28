@@ -116,44 +116,50 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 					)}
 				</div>
 
-				<nav className="drive-nav-group">
-					<DriveNavItem icon={Home} label="Home" disabled />
-					<DriveNavItem icon={Briefcase} label="Projects" disabled />
-				</nav>
+				<div className="flex flex-col gap-2 w-full">
+					<nav className="drive-nav-group">
+						<DriveNavItem icon={Home} label="Home" disabled />
+						<DriveNavItem icon={Briefcase} label="Projects" disabled />
+					</nav>
 
-				<nav className="drive-nav-group">
-					<DriveNavItem
-						icon={HardDrive}
-						label="My Drive"
-						href="/dashboard"
-						active={
-							pathname === "/dashboard" || pathname.startsWith("/drive/folders")
-						}
-						onClick={() => setSidebarOpen(false)}
-					/>
-					<DriveNavItem icon={Monitor} label="Computers" disabled />
-				</nav>
+					<nav className="drive-nav-group">
+						<DriveNavItem
+							icon={HardDrive}
+							label="My Drive"
+							href="/dashboard"
+							active={
+								pathname === "/dashboard" ||
+								pathname.startsWith("/drive/folders")
+							}
+							onClick={() => setSidebarOpen(false)}
+						/>
+						<DriveNavItem icon={Monitor} label="Computers" disabled />
+					</nav>
 
-				<nav className="drive-nav-group">
-					<DriveNavItem icon={Users} label="Shared with me" disabled />
-					<DriveNavItem icon={Clock} label="Recent" disabled />
-					<DriveNavItem
-						icon={Star}
-						label="Starred"
-						href="/starred"
-						active={pathname === "/starred"}
-						onClick={() => setSidebarOpen(false)}
-					/>
-					<DriveNavItem icon={AlertTriangle} label="Spam" disabled />
-					<DriveNavItem
-						icon={Trash2}
-						label="Trash"
-						href="/trash"
-						active={pathname === "/trash"}
-						onClick={() => setSidebarOpen(false)}
-					/>
-					<StorageMeter used={storageUsed} total={storageLimit} />
-				</nav>
+					<nav className="drive-nav-group">
+						<DriveNavItem icon={Users} label="Shared with me" disabled />
+						<DriveNavItem icon={Clock} label="Recent" disabled />
+						<DriveNavItem
+							icon={Star}
+							label="Starred"
+							href="/starred"
+							active={pathname === "/starred"}
+							onClick={() => setSidebarOpen(false)}
+						/>
+					</nav>
+
+					<nav className="drive-nav-group">
+						<DriveNavItem icon={AlertTriangle} label="Spam" disabled />
+						<DriveNavItem
+							icon={Trash2}
+							label="Trash"
+							href="/trash"
+							active={pathname === "/trash"}
+							onClick={() => setSidebarOpen(false)}
+						/>
+						<StorageMeter used={storageUsed} total={storageLimit} />
+					</nav>
+				</div>
 			</aside>
 		</>
 	)

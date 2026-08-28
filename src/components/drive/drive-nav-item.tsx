@@ -33,7 +33,7 @@ export function DriveNavItem({
       </span>
       <span className="drive-nav-label font-medium flex-1 text-sm">{label}</span>
       {badge && (
-        <span className="rounded bg-surface-high px-1.5 py-1 text-xs text-muted">
+        <span className="rounded bg-surface-high px-1.5 py-0.5 text-xs text-foreground font-medium">
           {badge}
         </span>
       )}

@@ -34,7 +34,7 @@ export function StorageMeter({ used, total }: StorageMeterProps) {
         <button
           disabled
           aria-disabled="true"
-          className="w-full rounded-full border border-border py-2 px-4 text-center text-xs font-medium text-primary hover:bg-surface-low transition-colors opacity-90 cursor-pointer"
+          className="w-full rounded-full border border-border py-2 px-4 text-center text-[13px] font-medium text-primary hover:bg-surface-low transition-colors opacity-90 cursor-pointer"
         >
           Get more storage
         </button>

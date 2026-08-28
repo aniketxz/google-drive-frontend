@@ -382,8 +382,7 @@
   }
 
   .drive-nav-item {
-    @apply flex w-full items-center gap-3.5 border-0 rounded-full bg-transparent text-foreground cursor-pointer text-left no-underline whitespace-nowrap transition-colors duration-150;
-    padding-inline: 1rem;
+    @apply flex w-full items-center gap-2 border-0 rounded-full bg-transparent text-foreground cursor-pointer text-left no-underline whitespace-nowrap transition-colors duration-150 py-1.5 px-3;
   }
 
   .drive-nav-item:hover {
@@ -399,7 +398,7 @@
   }
 
   .drive-nav-icon {
-    @apply grid h-5 w-5 flex-none place-items-center;
+    @apply grid size-4 flex-none place-items-center;
   }
 
   .drive-storage {

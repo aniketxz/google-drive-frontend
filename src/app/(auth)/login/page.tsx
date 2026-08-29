@@ -4,6 +4,7 @@ import { ProductLogo } from "@/components/brand/product-logo";
 import { Wordmark } from "@/components/brand/wordmark";
 import { GoogleLogo } from "@/components/brand/google-logo";
 import { env } from "@/lib/env";
+import { APP_ROUTES } from "@/constants";
 
 // Unauthenticated user login entry page
 export default function LoginPage() {
@@ -19,7 +20,7 @@ export default function LoginPage() {
         </div>
 
         <a
-          href={`${env.NEXT_PUBLIC_API_BASE_URL}/auth/google`}
+          href={`${env.NEXT_PUBLIC_API_BASE_URL}${APP_ROUTES.AUTH_GOOGLE}`}
           className="flex w-full items-center justify-center gap-3 rounded-full bg-primary hover:bg-primary-hover px-5 py-3 text-sm font-semibold text-white transition-all shadow-sm hover:shadow-md cursor-pointer"
         >
           <GoogleLogo className="h-5 w-5" />

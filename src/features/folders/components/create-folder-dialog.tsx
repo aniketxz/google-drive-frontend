@@ -5,6 +5,7 @@ import { DriveDialog } from "@/components/drive/drive-dialog";
 import { useCreateFolderMutation } from "../mutations";
 import { useDriveUiStore } from "@/stores/drive-ui-store-provider";
 import { useParams } from "next/navigation";
+import { DEFAULT_UNTITLED_FOLDER_NAME } from "@/constants";
 
 // Form dialog to input new folder names
 export function CreateFolderDialog() {
@@ -22,7 +23,7 @@ export function CreateFolderDialog() {
   if (isOpen !== prevIsOpen) {
     setPrevIsOpen(isOpen);
     if (isOpen) {
-      setName("Untitled folder");
+      setName(DEFAULT_UNTITLED_FOLDER_NAME);
     }
   }
 

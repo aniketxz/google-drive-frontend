@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
+import { APP_ROUTES } from "@/constants";
 
 function SearchInput() {
   const router = useRouter();
@@ -17,7 +18,7 @@ function SearchInput() {
   }
 
   const handleSearch = (term: string) => {
-    const nextPath = term ? `/dashboard?q=${encodeURIComponent(term)}` : `/dashboard`;
+    const nextPath = term ? `${APP_ROUTES.DASHBOARD}?q=${encodeURIComponent(term)}` : APP_ROUTES.DASHBOARD;
     router.push(nextPath);
   };
 
@@ -29,7 +30,7 @@ function SearchInput() {
 
   const handleClear = () => {
     setInputValue("");
-    router.push("/dashboard");
+    router.push(APP_ROUTES.DASHBOARD);
   };
 
   return (

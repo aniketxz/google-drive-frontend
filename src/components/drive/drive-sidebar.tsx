@@ -21,6 +21,7 @@ import { StorageMeter } from "./storage-meter"
 import { DriveButton } from "./drive-button"
 import { useDriveUiStore } from "@/stores/drive-ui-store-provider"
 import { selectSidebarOpen } from "@/stores/selectors"
+import { APP_ROUTES } from "@/constants"
 
 interface DriveSidebarProps {
 	storageUsed: number
@@ -126,9 +127,9 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 						<DriveNavItem
 							icon={HardDrive}
 							label="My Drive"
-							href="/dashboard"
+							href={APP_ROUTES.DASHBOARD}
 							active={
-								pathname === "/dashboard" ||
+								pathname === APP_ROUTES.DASHBOARD ||
 								pathname.startsWith("/drive/folders")
 							}
 							onClick={() => setSidebarOpen(false)}
@@ -142,8 +143,8 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 						<DriveNavItem
 							icon={Star}
 							label="Starred"
-							href="/starred"
-							active={pathname === "/starred"}
+							href={APP_ROUTES.STARRED}
+							active={pathname === APP_ROUTES.STARRED}
 							onClick={() => setSidebarOpen(false)}
 						/>
 					</nav>
@@ -153,8 +154,8 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 						<DriveNavItem
 							icon={Trash2}
 							label="Trash"
-							href="/trash"
-							active={pathname === "/trash"}
+							href={APP_ROUTES.TRASH}
+							active={pathname === APP_ROUTES.TRASH}
 							onClick={() => setSidebarOpen(false)}
 						/>
 						<StorageMeter used={storageUsed} total={storageLimit} />

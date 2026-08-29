@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import { apiFetch } from "@/lib/api/client"
 import { queryKeys } from "@/lib/api/query-keys"
 import { useRouter } from "next/navigation"
+import { DEFAULT_STORAGE_LIMIT_BYTES, APP_ROUTES } from "@/constants"
 
 interface UserProfileResponse {
 	success: boolean
@@ -38,22 +39,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
 	React.useEffect(() => {
 		if (error) {
-			router.push("/login")
+			router.push(APP_ROUTES.LOGIN)
 		}
 	}, [error, router])
 
 	const handleLogout = async () => {
 		try {
 			await apiFetch("/auth/logout", { method: "POST" })
-			router.push("/login")
+			router.push(APP_ROUTES.LOGIN)
 		} catch {
-			router.push("/login")
+			router.push(APP_ROUTES.LOGIN)
 		}
 	}
 
 	const user = userResponse?.success ? userResponse.data : null
 	const storageUsed = user?.usedStorage ?? 0
-	const storageLimit = user?.quota ?? 15 * 1024 * 1024 * 1024
+	const storageLimit = user?.quota ?? DEFAULT_STORAGE_LIMIT_BYTES
 
 	if (isLoading) {
 		return (

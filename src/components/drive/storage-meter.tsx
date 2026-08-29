@@ -2,7 +2,6 @@ import * as React from "react";
 import { formatBytes } from "@/lib/files/format";
 import { Cloud } from "lucide-react";
 import { DriveNavItem } from "./drive-nav-item";
-import { DisabledFeatureTooltip } from "./disabled-feature-tooltip";
 
 interface StorageMeterProps {
   used: number;

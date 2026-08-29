@@ -34,11 +34,11 @@ export default function FolderPage({ params }: FolderPageProps) {
   });
 
   const currentFolder = contentsResponse?.success ? contentsResponse.data.folder : null;
-  const childFolders = contentsResponse?.success ? contentsResponse.data.children : [];
-  const files = filesResponse?.success ? filesResponse.data : [];
   const ancestors = breadcrumbsResponse?.success ? breadcrumbsResponse.data : [];
 
   const items: ExplorerItem[] = React.useMemo(() => {
+    const childFolders = contentsResponse?.success ? contentsResponse.data.children : [];
+    const files = filesResponse?.success ? filesResponse.data : [];
     const explorerItems: ExplorerItem[] = [];
 
     childFolders.forEach((folder) => {
@@ -66,7 +66,7 @@ export default function FolderPage({ params }: FolderPageProps) {
     });
 
     return explorerItems;
-  }, [childFolders, files]);
+  }, [contentsResponse, filesResponse]);
 
   const isLoading = contentsLoading || breadcrumbsLoading || filesLoading;
 

@@ -7,10 +7,6 @@ import { env } from "@/lib/env";
 
 // Unauthenticated user login entry page
 export default function LoginPage() {
-  const handleGoogleLogin = () => {
-    window.location.href = `${env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
-  };
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-canvas px-4">
       <div className="w-full max-w-md rounded-3xl bg-surface p-8 shadow-dialog border border-outline-soft">
@@ -22,13 +18,13 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <button
-          onClick={handleGoogleLogin}
+        <a
+          href={`${env.NEXT_PUBLIC_API_BASE_URL}/auth/google`}
           className="flex w-full items-center justify-center gap-3 rounded-full bg-primary hover:bg-primary-hover px-5 py-3 text-sm font-semibold text-white transition-all shadow-sm hover:shadow-md cursor-pointer"
         >
           <GoogleLogo className="h-5 w-5" />
           <span>Continue with Google</span>
-        </button>
+        </a>
 
         <div className="mt-8 text-center text-xs text-muted-foreground font-normal">
           By signing in, you agree to the local storage session policies.

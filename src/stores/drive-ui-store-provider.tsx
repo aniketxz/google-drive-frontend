@@ -8,13 +8,10 @@ const DriveUiStoreContext = React.createContext<ReturnType<typeof createDriveUiS
 
 // Expose Zustand store through React Context
 export function DriveUiStoreProvider({ children }: { children: React.ReactNode }) {
-  const storeRef = React.useRef<ReturnType<typeof createDriveUiStore>>(null);
-  if (!storeRef.current) {
-    storeRef.current = createDriveUiStore();
-  }
+  const [store] = React.useState(() => createDriveUiStore());
 
   return (
-    <DriveUiStoreContext.Provider value={storeRef.current}>
+    <DriveUiStoreContext.Provider value={store}>
       {children}
     </DriveUiStoreContext.Provider>
   );

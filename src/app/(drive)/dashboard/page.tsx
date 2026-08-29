@@ -24,10 +24,9 @@ function DashboardContent() {
     queryFn: () => getFiles({ folderId: searchQuery ? undefined : null, q: searchQuery }),
   });
 
-  const folders = foldersResponse?.success ? foldersResponse.data : [];
-  const files = filesResponse?.success ? filesResponse.data : [];
-
   const items: ExplorerItem[] = React.useMemo(() => {
+    const folders = foldersResponse?.success ? foldersResponse.data : [];
+    const files = filesResponse?.success ? filesResponse.data : [];
     const explorerItems: ExplorerItem[] = [];
 
     if (!searchQuery) {
@@ -57,7 +56,7 @@ function DashboardContent() {
     });
 
     return explorerItems;
-  }, [folders, files, searchQuery]);
+  }, [foldersResponse, filesResponse, searchQuery]);
 
   const isLoading = foldersLoading || filesLoading;
 

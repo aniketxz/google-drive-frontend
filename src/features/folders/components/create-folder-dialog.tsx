@@ -17,11 +17,14 @@ export function CreateFolderDialog() {
 
   const isOpen = activeDialog?.type === "createFolder";
 
-  React.useEffect(() => {
+  const [prevIsOpen, setPrevIsOpen] = React.useState(false);
+
+  if (isOpen !== prevIsOpen) {
+    setPrevIsOpen(isOpen);
     if (isOpen) {
       setName("Untitled folder");
     }
-  }, [isOpen]);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

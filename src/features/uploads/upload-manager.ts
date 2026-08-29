@@ -1,7 +1,6 @@
 import pLimit from "p-limit";
 import { initiateUpload, presignPart, completeUpload, abortUpload } from "./api";
 import { useUploadStore } from "@/stores/upload-store";
-import { apiFetch } from "@/lib/api/client";
 
 const CHUNK_SIZE = 5 * 1024 * 1024;
 

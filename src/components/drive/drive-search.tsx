@@ -1,20 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
 function SearchInput() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  
   const query = searchParams.get("q") || "";
   const [inputValue, setInputValue] = React.useState(query);
 
-  React.useEffect(() => {
+  const [prevQuery, setPrevQuery] = React.useState(query);
+  if (query !== prevQuery) {
+    setPrevQuery(query);
     setInputValue(query);
-  }, [query]);
+  }
 
   const handleSearch = (term: string) => {
     const nextPath = term ? `/dashboard?q=${encodeURIComponent(term)}` : `/dashboard`;

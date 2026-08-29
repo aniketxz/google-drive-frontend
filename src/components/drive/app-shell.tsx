@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query"
 import { apiFetch } from "@/lib/api/client"
 import { queryKeys } from "@/lib/api/query-keys"
 import { useRouter } from "next/navigation"
-import { useDriveUiStore } from "@/stores/drive-ui-store-provider"
 
 interface UserProfileResponse {
 	success: boolean
@@ -26,7 +25,6 @@ import { UploadDropzone } from "@/features/uploads/components/upload-dropzone"
 // Master shell container for active workspace pages
 export function AppShell({ children }: { children: React.ReactNode }) {
 	const router = useRouter()
-	const openDialog = useDriveUiStore((state) => state.openDialog)
 
 	const {
 		data: userResponse,

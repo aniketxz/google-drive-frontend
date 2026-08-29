@@ -32,7 +32,7 @@ export function UploadItem({ task }: UploadItemProps) {
         <span className="text-sm font-medium text-foreground truncate" title={task.filename}>
           {task.filename}
         </span>
-        <span className="text-xs text-muted">
+        <span className="text-xs text-muted-foreground">
           {formatBytes(task.uploadedBytes)} of {formatBytes(task.size)} • {getStatusText()}
         </span>
       </div>

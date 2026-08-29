@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { ProductLogo } from "@/components/brand/product-logo";
 import { Wordmark } from "@/components/brand/wordmark";
 import { DriveSearch } from "./drive-search";
@@ -101,9 +102,12 @@ export function DriveTopbar({ user, onLogout }: DriveTopbarProps) {
               aria-label="Open account menu"
             >
               {!avatarError && user.avatar ? (
-                <img
+                <Image
                   src={user.avatar}
                   alt={user.name}
+                  width={32}
+                  height={32}
+                  unoptimized
                   onError={() => setAvatarError(true)}
                   className="h-full w-full rounded-full object-cover"
                 />

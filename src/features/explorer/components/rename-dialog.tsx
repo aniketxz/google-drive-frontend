@@ -21,11 +21,16 @@ export function RenameDialog() {
   const itemId = activeDialog?.itemId;
   const initialName = activeDialog?.itemName || "";
 
-  React.useEffect(() => {
+  const [prevIsOpen, setPrevIsOpen] = React.useState(false);
+  const [prevInitialName, setPrevInitialName] = React.useState("");
+
+  if (isOpen !== prevIsOpen || initialName !== prevInitialName) {
+    setPrevIsOpen(isOpen);
+    setPrevInitialName(initialName);
     if (isOpen) {
       setName(initialName);
     }
-  }, [isOpen, initialName]);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

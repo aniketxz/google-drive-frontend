@@ -20,10 +20,9 @@ export default function TrashPage() {
     queryFn: () => getFiles({ trash: true }),
   });
 
-  const folders = foldersResponse?.success ? foldersResponse.data : [];
-  const files = filesResponse?.success ? filesResponse.data : [];
-
   const items: ExplorerItem[] = React.useMemo(() => {
+    const folders = foldersResponse?.success ? foldersResponse.data : [];
+    const files = filesResponse?.success ? filesResponse.data : [];
     const explorerItems: ExplorerItem[] = [];
 
     folders.forEach((folder) => {
@@ -51,7 +50,7 @@ export default function TrashPage() {
     });
 
     return explorerItems;
-  }, [folders, files]);
+  }, [foldersResponse, filesResponse]);
 
   const isLoading = foldersLoading || filesLoading;
   const currentFolderDummy = { id: "trash", name: "Trash" } as any;

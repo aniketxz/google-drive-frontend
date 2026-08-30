@@ -51,3 +51,38 @@ export const APP_ROUTES = {
   TRASH: "/trash",
   AUTH_GOOGLE: "/auth/google",
 } as const;
+
+
+// ==========================================
+// 5. File Preview Configuration
+// ==========================================
+
+/** Maximum text/code file size loaded into browser memory for preview (2 MB). */
+export const MAX_TEXT_PREVIEW_BYTES = 2 * 1024 * 1024;
+
+/** Maximum PDF file size fetched as blob for in-browser iframe rendering (50 MB). */
+export const MAX_PDF_PREVIEW_BYTES = 50 * 1024 * 1024;
+
+/** List of text and code file extensions supported for syntax preview. */
+export const TEXT_PREVIEW_EXTENSIONS = [
+  ".txt",
+  ".json",
+  ".md",
+  ".js",
+  ".ts",
+  ".tsx",
+  ".jsx",
+  ".css",
+  ".html",
+  ".py",
+  ".csv",
+  ".env",
+  ".yaml",
+  ".yml",
+  ".sh",
+  ".sql",
+  ".xml",
+  ".svg",
+  ".log",
+] as const;
+

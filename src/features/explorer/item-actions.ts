@@ -1,9 +1,10 @@
-import { LucideIcon, FolderOpen, Edit3, Star, Move, Download, Trash, RefreshCw, Trash2 } from "lucide-react";
+import { LucideIcon, FolderOpen, Edit3, Star, Move, Download, Trash, RefreshCw, Trash2, Eye } from "lucide-react";
 import { ExplorerItem } from "./types";
 import { capabilities } from "@/lib/capabilities";
 
 export type ItemActionId =
   | "open"
+  | "preview"
   | "rename"
   | "star"
   | "unstar"
@@ -55,6 +56,16 @@ export function getItemActions(
     });
 
     return actions;
+  }
+
+  if (isSingle && firstItem.kind === "file") {
+    actions.push({
+      id: "preview",
+      label: "Preview",
+      icon: Eye,
+      enabled: true,
+      shortcut: "Space",
+    });
   }
 
   if (isSingle && firstItem.kind === "folder") {

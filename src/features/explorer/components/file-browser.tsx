@@ -39,6 +39,7 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
   const setTypeFilter = useDriveUiStore((state) => state.setTypeFilter);
   const clearSelection = useDriveUiStore((state) => state.clearSelection);
   const openDialog = useDriveUiStore((state) => state.openDialog);
+  const openPreview = useDriveUiStore((state) => state.openPreview);
   const selectedIds = useDriveUiStore((state) => state.selectedIds);
   const detailsItemId = useDriveUiStore((state) => state.detailsItemId);
   const setDetailsItemId = useDriveUiStore((state) => state.setDetailsItemId);
@@ -75,6 +76,37 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
     return () => window.removeEventListener("click", handleGlobalClick);
   }, []);
 
+  // Spacebar quick look shortcut when single file is selected
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if typing in an input
+      if (
+        document.activeElement?.tagName === "INPUT" ||
+        document.activeElement?.tagName === "TEXTAREA"
+      ) {
+        return;
+      }
+
+      if (e.code === "Space" && selectedIds.size === 1) {
+        e.preventDefault();
+        const selectedId = Array.from(selectedIds)[0];
+        const item = items.find((i) => i.id === selectedId);
+        if (item && item.kind === "file") {
+          openPreview({
+            id: item.id,
+            name: item.name,
+            mimeType: item.mimeType,
+            size: item.size,
+            isStarred: item.isStarred,
+          });
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIds, items, openPreview]);
+
   const processedItems = React.useMemo(() => {
     return sortAndFilterItems(items, typeFilter, sort);
   }, [items, typeFilter, sort]);
@@ -100,7 +132,25 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
     const firstItem = selectedItems[0];
 
     if (actionId === "open") {
-      router.push(`/drive/folders/${firstItem.id}`);
+      if (firstItem.kind === "folder") {
+        router.push(`/drive/folders/${firstItem.id}`);
+      } else {
+        openPreview({
+          id: firstItem.id,
+          name: firstItem.name,
+          mimeType: firstItem.mimeType,
+          size: firstItem.size,
+          isStarred: firstItem.isStarred,
+        });
+      }
+    } else if (actionId === "preview" && firstItem.kind === "file") {
+      openPreview({
+        id: firstItem.id,
+        name: firstItem.name,
+        mimeType: firstItem.mimeType,
+        size: firstItem.size,
+        isStarred: firstItem.isStarred,
+      });
     } else if (actionId === "rename") {
       openDialog(
         firstItem.kind === "folder" ? "renameFolder" : "renameFile",
@@ -284,13 +334,29 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
             <FileGrid
               items={processedItems}
               onContextMenu={handleContextMenu}
-              onFileDoubleClick={(file) => handleActionClick("download", [{ kind: "file", id: file.id, name: file.originalName, updatedAt: file.updatedAt, size: file.size, mimeType: file.mimeType, isStarred: file.isStarred, raw: file }])}
+              onFileDoubleClick={(file) =>
+                openPreview({
+                  id: file.id,
+                  name: file.originalName,
+                  mimeType: file.mimeType,
+                  size: file.size,
+                  isStarred: file.isStarred,
+                })
+              }
             />
           ) : (
             <FileList
               items={processedItems}
               onContextMenu={handleContextMenu}
-              onFileDoubleClick={(file) => handleActionClick("download", [{ kind: "file", id: file.id, name: file.originalName, updatedAt: file.updatedAt, size: file.size, mimeType: file.mimeType, isStarred: file.isStarred, raw: file }])}
+              onFileDoubleClick={(file) =>
+                openPreview({
+                  id: file.id,
+                  name: file.originalName,
+                  mimeType: file.mimeType,
+                  size: file.size,
+                  isStarred: file.isStarred,
+                })
+              }
             />
           )}
         </div>

@@ -29,3 +29,8 @@ export async function getFiles(filters: ListFilesFilters): Promise<ApiResponse<D
   const path = `/files${queryStr ? `?${queryStr}` : ""}`;
   return apiFetch<ApiResponse<DriveFile[]>>(path);
 }
+
+// Fetch presigned download/view URL for a specific file
+export async function getFileDownloadUrl(id: string): Promise<ApiResponse<{ url: string }>> {
+  return apiFetch<ApiResponse<{ url: string }>>(`/files/${id}/download`);
+}

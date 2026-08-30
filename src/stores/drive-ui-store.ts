@@ -7,6 +7,14 @@ export interface DriveDialogState {
   itemName?: string;
 }
 
+export interface PreviewFileState {
+  id: string;
+  name: string;
+  mimeType: string;
+  size: number;
+  isStarred?: boolean;
+}
+
 export interface DriveUiState {
   viewMode: "grid" | "list";
   sort: { field: "name" | "updatedAt" | "size"; direction: "asc" | "desc" };
@@ -16,6 +24,7 @@ export interface DriveUiState {
   sidebarOpen: boolean;
   detailsItemId: string | null;
   activeDialog: DriveDialogState | null;
+  previewFile: PreviewFileState | null;
 }
 
 export interface DriveUiActions {
@@ -30,6 +39,8 @@ export interface DriveUiActions {
   setDetailsItemId: (id: string | null) => void;
   openDialog: (type: DriveDialogState["type"], itemId?: string, itemName?: string) => void;
   closeDialog: () => void;
+  openPreview: (file: PreviewFileState) => void;
+  closePreview: () => void;
 }
 
 export type DriveUiStore = DriveUiState & DriveUiActions;
@@ -45,6 +56,7 @@ export const createDriveUiStore = (initProps?: Partial<DriveUiState>) => {
     sidebarOpen: false,
     detailsItemId: null,
     activeDialog: null,
+    previewFile: null,
     ...initProps,
     
     setViewMode: (viewMode) => set({ viewMode }),
@@ -84,5 +96,7 @@ export const createDriveUiStore = (initProps?: Partial<DriveUiState>) => {
     openDialog: (type, itemId, itemName) =>
       set({ activeDialog: { type, itemId, itemName } }),
     closeDialog: () => set({ activeDialog: null }),
+    openPreview: (previewFile) => set({ previewFile }),
+    closePreview: () => set({ previewFile: null }),
   }));
 };

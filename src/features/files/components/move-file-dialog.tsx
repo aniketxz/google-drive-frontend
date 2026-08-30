@@ -57,9 +57,12 @@ export function MoveFileDialog() {
   });
 
   const isLoading = currentFolderId === null ? rootLoading : detailLoading;
-  const currentFolders = currentFolderId === null
-    ? (rootFoldersResponse?.success ? rootFoldersResponse.data : [])
-    : (detailResponse?.success ? detailResponse.data.children : []);
+  const currentFolders = React.useMemo(() => {
+    if (currentFolderId === null) {
+      return rootFoldersResponse?.success ? rootFoldersResponse.data : [];
+    }
+    return detailResponse?.success ? detailResponse.data.children : [];
+  }, [currentFolderId, rootFoldersResponse, detailResponse]);
 
   const handleNavigateInto = (folder: { id: string; name: string }) => {
     setCurrentFolderId(folder.id);

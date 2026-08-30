@@ -29,12 +29,11 @@ export function CreateFolderDialog() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
-
+    const folderName = name.trim() || DEFAULT_UNTITLED_FOLDER_NAME;
     const parentId = (params?.folderId as string) || null;
 
     try {
-      await createFolder.mutateAsync({ name, parentId });
+      await createFolder.mutateAsync({ name: folderName, parentId });
       closeDialog();
     } catch {
       // Error notifications handled by toast
@@ -53,7 +52,7 @@ export function CreateFolderDialog() {
       <button
         type="submit"
         form="create-folder-form"
-        disabled={createFolder.isPending || !name.trim()}
+        disabled={createFolder.isPending}
         className="drive-dialog-action"
         data-emphasis="primary"
       >
@@ -75,8 +74,9 @@ export function CreateFolderDialog() {
           autoFocus
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Folder name"
+          placeholder={DEFAULT_UNTITLED_FOLDER_NAME}
           className="drive-dialog-input"
+          onFocus={(e) => e.target.select()}
         />
       </form>
     </DriveDialog>

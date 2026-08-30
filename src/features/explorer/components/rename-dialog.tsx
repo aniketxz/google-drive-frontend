@@ -86,6 +86,7 @@ export function RenameDialog() {
           onChange={(e) => setName(e.target.value)}
           placeholder="New name"
           className="drive-dialog-input"
+          onFocus={(e) => e.target.select()}
         />
       </form>
     </DriveDialog>

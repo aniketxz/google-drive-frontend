@@ -4,7 +4,7 @@ import * as React from "react";
 export function Wordmark({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
     <span
-      className={`font-normal tracking-tight text-foreground select-none ${className}`}
+      className={`font-semibold tracking-tight text-foreground select-none ${className}`}
       {...props}
     >
       Drive

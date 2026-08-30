@@ -30,10 +30,9 @@ export function useRenameFileMutation() {
         json: { name },
       });
     },
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       toast.success("File renamed successfully");
-      const folderId = data?.data?.folderId;
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({ folderId }) });
+      queryClient.invalidateQueries({ queryKey: ["files"] });
     },
     onError: (error: any) => {
       toast.error(error.message || "Failed to rename file");
@@ -51,10 +50,8 @@ export function useStarFileMutation() {
         json: { isStarred },
       });
     },
-    onSuccess: (data: any) => {
-      const folderId = data?.data?.folderId;
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({ folderId }) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({ starred: true }) });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["files"] });
     },
     onError: (error: any) => {
       toast.error(error.message || "Failed to update star");
@@ -74,7 +71,8 @@ export function useMoveFileMutation() {
     },
     onSuccess: () => {
       toast.success("File moved successfully");
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({}) });
+      queryClient.invalidateQueries({ queryKey: ["files"] });
+      queryClient.invalidateQueries({ queryKey: ["folders"] });
     },
     onError: (error: any) => {
       toast.error(error.message || "Failed to move file");
@@ -93,7 +91,7 @@ export function useTrashFileMutation() {
     },
     onSuccess: () => {
       toast.success("File moved to trash");
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({}) });
+      queryClient.invalidateQueries({ queryKey: ["files"] });
       queryClient.invalidateQueries({ queryKey: queryKeys.user });
     },
     onError: (error: any) => {
@@ -113,7 +111,7 @@ export function useRestoreFileMutation() {
     },
     onSuccess: () => {
       toast.success("File restored successfully");
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({}) });
+      queryClient.invalidateQueries({ queryKey: ["files"] });
       queryClient.invalidateQueries({ queryKey: queryKeys.user });
     },
     onError: (error: any) => {
@@ -133,7 +131,7 @@ export function usePermanentDeleteFileMutation() {
     },
     onSuccess: () => {
       toast.success("File permanently deleted");
-      queryClient.invalidateQueries({ queryKey: queryKeys.files.list({}) });
+      queryClient.invalidateQueries({ queryKey: ["files"] });
       queryClient.invalidateQueries({ queryKey: queryKeys.user });
     },
     onError: (error: any) => {

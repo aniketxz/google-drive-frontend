@@ -13,7 +13,7 @@
   --primary-foreground: #ffffff;
   --secondary: #e9eef6;
   --secondary-foreground: #1f1f1f;
-  --muted: #f0f4f9;
+  --muted: #444746;
   --muted-foreground: #444746;
   --accent: #c2e7ff;
   --accent-foreground: #041e49;
@@ -108,7 +108,7 @@
   --primary-foreground: #062e6f;
   --secondary: #282a2d;
   --secondary-foreground: #e3e2e6;
-  --muted: #282a2d;
+  --muted: #c4c7c5;
   --muted-foreground: #c4c7c5;
   --accent: #004a77;
   --accent-foreground: #c2e7ff;
@@ -406,7 +406,7 @@
   }
 
   .drive-storage-meter {
-    @apply h-1 overflow-hidden rounded-full bg-muted;
+    @apply h-1 overflow-hidden rounded-full bg-surface-high;
   }
 
   .drive-storage-meter > span {
@@ -620,7 +620,7 @@
   }
 
   .drive-upload-progress {
-    @apply h-6 w-6 ml-auto border-4 border-muted border-t-primary rounded-full animate-spin;
+    @apply h-6 w-6 ml-auto border-4 border-surface-high border-t-primary rounded-full animate-spin;
   }
 
   .drive-upload-success {
@@ -642,6 +642,31 @@
     background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 65%, transparent), transparent);
     content: "";
     transform: translateX(-100%);
+  }
+
+  .drive-card-more {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-surface-high hover:text-foreground cursor-pointer border-0 bg-transparent;
+  }
+
+  .drive-dialog-input {
+    @apply w-full rounded-xl border border-outline-soft bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-150 outline-none;
+  }
+
+  .drive-dialog-input:focus {
+    @apply border-primary ring-2 ring-primary/20;
+    box-shadow: 0 0 0 1px var(--primary);
+  }
+
+  .drive-dialog-action {
+    @apply inline-flex min-h-9 items-center justify-center rounded-full px-5 py-2 text-sm font-medium cursor-pointer transition-colors duration-150 border-0 bg-transparent text-primary hover:bg-primary/10 active:bg-primary/20 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .drive-dialog-action[data-emphasis="primary"] {
+    @apply bg-primary text-primary-foreground hover:bg-primary-hover px-6 shadow-xs;
+  }
+
+  .drive-dialog-action[data-emphasis="danger"] {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 px-6 shadow-xs;
   }
 }
 

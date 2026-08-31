@@ -1,10 +1,11 @@
-import { LucideIcon, FolderOpen, Edit3, Star, Move, Download, Trash, RefreshCw, Trash2, Eye } from "lucide-react";
+import { LucideIcon, FolderOpen, Edit3, Star, Move, Download, Trash, RefreshCw, Trash2, Eye, UserPlus } from "lucide-react";
 import { ExplorerItem } from "./types";
 import { capabilities } from "@/lib/capabilities";
 
 export type ItemActionId =
   | "open"
   | "preview"
+  | "share"
   | "rename"
   | "star"
   | "unstar"
@@ -74,6 +75,15 @@ export function getItemActions(
       label: "Open",
       icon: FolderOpen,
       enabled: true,
+    });
+  }
+
+  if (isSingle) {
+    actions.push({
+      id: "share",
+      label: "Share",
+      icon: UserPlus,
+      enabled: capabilities.sharing,
     });
   }
 

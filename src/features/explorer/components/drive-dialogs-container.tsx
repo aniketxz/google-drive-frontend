@@ -7,6 +7,7 @@ import { DeleteDialog } from "./delete-dialog";
 import { MoveFileDialog } from "@/features/files/components/move-file-dialog";
 import { EmptyTrashDialog } from "@/features/trash/components/empty-trash-dialog";
 import { FilePreviewModal } from "@/features/files/components/file-preview-modal";
+import { ShareDialog } from "@/features/shares/components/share-dialog";
 
 // Mount all dialog modals in a single container
 export function DriveDialogsContainer() {
@@ -18,6 +19,7 @@ export function DriveDialogsContainer() {
       <MoveFileDialog />
       <EmptyTrashDialog />
       <FilePreviewModal />
+      <ShareDialog />
     </>
   );
 }

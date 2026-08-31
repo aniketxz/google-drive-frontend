@@ -151,6 +151,8 @@ export function FileBrowser({ currentFolder, ancestors, items, isLoading = false
         size: firstItem.size,
         isStarred: firstItem.isStarred,
       });
+    } else if (actionId === "share") {
+      openDialog("share", firstItem.id, firstItem.name, firstItem.kind);
     } else if (actionId === "rename") {
       openDialog(
         firstItem.kind === "folder" ? "renameFolder" : "renameFile",

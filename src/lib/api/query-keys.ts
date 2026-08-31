@@ -11,4 +11,11 @@ export const queryKeys = {
   files: {
     list: (filters: Record<string, any>) => ["files", "list", filters] as const,
   },
+  shares: {
+    received: ["shares", "received"] as const,
+    sent: ["shares", "sent"] as const,
+    publicLinks: ["public", "list"] as const,
+    publicResource: (token: string) => ["public", "resource", token] as const,
+  },
 };
+

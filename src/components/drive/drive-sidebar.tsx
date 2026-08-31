@@ -138,7 +138,16 @@ export function DriveSidebar({ storageUsed, storageLimit }: DriveSidebarProps) {
 					</nav>
 
 					<nav className="drive-nav-group">
-						<DriveNavItem icon={Users} label="Shared with me" disabled />
+						<DriveNavItem
+							icon={Users}
+							label="Shared with me"
+							href={APP_ROUTES.SHARED_WITH_ME}
+							active={
+								pathname === APP_ROUTES.SHARED_WITH_ME ||
+								pathname === "/dashboard/shared-with-me"
+							}
+							onClick={() => setSidebarOpen(false)}
+						/>
 						<DriveNavItem icon={Clock} label="Recent" disabled />
 						<DriveNavItem
 							icon={Star}

@@ -47,9 +47,11 @@ export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   DASHBOARD: "/dashboard",
+  SHARED_WITH_ME: "/shared-with-me",
   STARRED: "/starred",
   TRASH: "/trash",
   AUTH_GOOGLE: "/auth/google",
+  PUBLIC_VIEW: "/public-view",
 } as const;
 
 

@@ -30,7 +30,41 @@ export async function getFiles(filters: ListFilesFilters): Promise<ApiResponse<D
   return apiFetch<ApiResponse<DriveFile[]>>(path);
 }
 
-// Fetch presigned download/view URL for a specific file
-export async function getFileDownloadUrl(id: string): Promise<ApiResponse<{ url: string }>> {
-  return apiFetch<ApiResponse<{ url: string }>>(`/files/${id}/download`);
+// Fetch presigned download/view URL for a specific file or shared resource
+export async function getFileDownloadUrl(
+  id: string,
+  shareId?: string
+): Promise<ApiResponse<{ url: string }>> {
+  const candidates = [
+    `/files/${id}/download`,
+    ...(shareId ? [`/shares/${shareId}/download`, `/shares/${shareId}`] : []),
+    `/shares/${id}/download`,
+    `/shares/${id}`,
+    ...(shareId ? [`/files/${id}/download?shareId=${encodeURIComponent(shareId)}`] : []),
+    ...(shareId ? [`/shares/received/${shareId}/download`] : []),
+    `/shares/received/${id}/download`,
+    ...(shareId ? [`/files/${shareId}/download`] : []),
+  ];
+
+  let lastError: any = null;
+
+  for (const path of candidates) {
+    try {
+      const res = await apiFetch<any>(path);
+      const downloadUrl =
+        res?.data?.url ||
+        res?.url ||
+        (typeof res === "string" && res.startsWith("http") ? res : null);
+      if (downloadUrl) {
+        return {
+          success: true,
+          data: { url: downloadUrl },
+        };
+      }
+    } catch (err: any) {
+      lastError = err;
+    }
+  }
+
+  throw lastError || new Error("Failed to retrieve secure view/download URL");
 }

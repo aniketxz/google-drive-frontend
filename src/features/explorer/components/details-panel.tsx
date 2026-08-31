@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { getFileKind } from "@/lib/files/file-kind";
 import { ExplorerItem } from "../types";
 import { FileKindIcon } from "@/components/drive/file-kind-icon";
-import { X, Info } from "lucide-react";
+import { X, Info, UserPlus } from "lucide-react";
 import { useDriveUiStore } from "@/stores/drive-ui-store-provider";
 
 interface DetailsPanelProps {
@@ -17,6 +17,7 @@ interface DetailsPanelProps {
 export function DetailsPanel({ items }: DetailsPanelProps) {
   const detailsItemId = useDriveUiStore((state) => state.detailsItemId);
   const setDetailsItemId = useDriveUiStore((state) => state.setDetailsItemId);
+  const openDialog = useDriveUiStore((state) => state.openDialog);
 
   const activeItem = React.useMemo(() => {
     if (!detailsItemId) return null;
@@ -92,6 +93,18 @@ export function DetailsPanel({ items }: DetailsPanelProps) {
               {activeItem.isStarred ? "Yes" : "No"}
             </span>
           </div>
+        </div>
+
+        <div className="pt-2 border-t border-outline-soft">
+          <button
+            onClick={() =>
+              openDialog("share", activeItem.id, activeItem.name, activeItem.kind)
+            }
+            className="w-full flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-xs font-medium hover:bg-primary-hover transition-colors shadow-2xs"
+          >
+            <UserPlus className="h-4 w-4" />
+            <span>Manage Access & Sharing</span>
+          </button>
         </div>
       </div>
     </div>

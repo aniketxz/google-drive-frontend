@@ -2,14 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiFetch } from "@/lib/api/client";
 import { queryKeys } from "@/lib/api/query-keys";
 import { toast } from "sonner";
-import { ApiResponse } from "@/lib/api/envelope";
+import { getFileDownloadUrl } from "./api";
 
 export function useDownloadFile() {
   return useMutation({
-    mutationFn: async (id: string) => {
-      const response = await apiFetch<ApiResponse<{ url: string }>>(`/files/${id}/download`);
-      if (response?.success && response.data?.url) {
-        window.open(response.data.url, "_blank");
+    mutationFn: async (args: string | { id: string; shareId?: string }) => {
+      const id = typeof args === "string" ? args : args.id;
+      const shareId = typeof args === "string" ? undefined : args.shareId;
+      const response = await getFileDownloadUrl(id, shareId);
+      const downloadUrl = response?.data?.url || (response as any)?.url;
+      if (downloadUrl) {
+        window.open(downloadUrl, "_blank");
       } else {
         throw new Error("Download URL not found");
       }

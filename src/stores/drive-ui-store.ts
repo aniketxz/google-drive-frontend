@@ -2,13 +2,23 @@ import { createStore } from "zustand/vanilla";
 import { FileKind } from "@/lib/files/file-kind";
 
 export interface DriveDialogState {
-  type: "createFolder" | "renameFolder" | "renameFile" | "moveFile" | "deleteFile" | "emptyTrash" | null;
+  type:
+    | "createFolder"
+    | "renameFolder"
+    | "renameFile"
+    | "moveFile"
+    | "deleteFile"
+    | "emptyTrash"
+    | "share"
+    | null;
   itemId?: string;
   itemName?: string;
+  resourceType?: "file" | "folder";
 }
 
 export interface PreviewFileState {
   id: string;
+  shareId?: string;
   name: string;
   mimeType: string;
   size: number;
@@ -37,7 +47,12 @@ export interface DriveUiActions {
   clearSelection: () => void;
   setSidebarOpen: (open: boolean) => void;
   setDetailsItemId: (id: string | null) => void;
-  openDialog: (type: DriveDialogState["type"], itemId?: string, itemName?: string) => void;
+  openDialog: (
+    type: DriveDialogState["type"],
+    itemId?: string,
+    itemName?: string,
+    resourceType?: "file" | "folder"
+  ) => void;
   closeDialog: () => void;
   openPreview: (file: PreviewFileState) => void;
   closePreview: () => void;
@@ -93,8 +108,8 @@ export const createDriveUiStore = (initProps?: Partial<DriveUiState>) => {
       
     setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
     setDetailsItemId: (detailsItemId) => set({ detailsItemId }),
-    openDialog: (type, itemId, itemName) =>
-      set({ activeDialog: { type, itemId, itemName } }),
+    openDialog: (type, itemId, itemName, resourceType) =>
+      set({ activeDialog: { type, itemId, itemName, resourceType } }),
     closeDialog: () => set({ activeDialog: null }),
     openPreview: (previewFile) => set({ previewFile }),
     closePreview: () => set({ previewFile: null }),

@@ -89,7 +89,7 @@ export async function getPublicResource(
 }
 
 /**
- * Revoke/delete a public link.
+ * Revoke/delete a public link by its database UUID (`link.id`).
  */
 export async function revokePublicLink(id: string): Promise<ApiResponse<{ message: string }>> {
   return apiFetch<ApiResponse<{ message: string }>>(`/public/${id}`, {

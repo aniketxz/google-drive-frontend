@@ -510,7 +510,7 @@ function ShareDialogContent({
 
                     <button
                       type="button"
-                      onClick={() => revokePublicLinkMutation.mutate(itemPublicLink.token)}
+                      onClick={() => revokePublicLinkMutation.mutate(itemPublicLink.id)}
                       disabled={revokePublicLinkMutation.isPending}
                       className="inline-flex items-center gap-1.5 text-xs text-rose-500 hover:text-rose-600 transition-colors cursor-pointer"
                     >
